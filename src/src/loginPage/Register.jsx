@@ -25,7 +25,15 @@ export function Register({ setPage }) {
 
             console.log(successMessage);
             // On success, redirect to login page
-            setPage('signIn');
+            //ONLY CHANGE THAT HAPPENED
+            // if role is VehicleOps, then redirect to VehicleOpsLogin page
+            if(data.role === "VehicleOps"){
+                setPage("VehicleOpsLogin")
+            }
+            else{
+                setPage(data.role)
+            }
+            
 
         } catch (err) {
             console.error("Backend error:", err);

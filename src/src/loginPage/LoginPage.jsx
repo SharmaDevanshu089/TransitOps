@@ -2,6 +2,7 @@ import { useState } from "react";
 import { SignIn } from "./SignUp";
 import { Register } from "./Register";
 import "./LoginPage.css";
+import { VehicleOpsLogin } from "./VehicleOpsLogin";
 
 export function LoginPage(){
     const [signUp,setSignUp] = useState("signIn")
@@ -14,5 +15,9 @@ export function LoginPage(){
             </>
         )}
         {signUp === "register" && <Register setPage={setSignUp} />}
+        {/* ONLY CHANGE I MADE */}
+        {signUp === "VehicleOpsLogin" && <VehicleOpsLogin setPage={setSignUp}/>}
+        {/* THESE ARE THE PAGES WHERE WE WILL RE DIRECT USER BASED ON ROLE*/}
+        {signUp === "" && <></>}
     </div>)
 }

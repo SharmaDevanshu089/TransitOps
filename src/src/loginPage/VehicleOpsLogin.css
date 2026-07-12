@@ -1,0 +1,62 @@
+/* VehicleOpsLogin.css */
+.vehicleops-login-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: transparent;
+  color: #f8fafc;
+  font-family: system-ui, sans-serif;
+  padding: 2rem;
+}
+
+.vehicleops-login-page .form {
+  background-color: transparent;
+  padding: 2.5rem;
+  border-radius: 12px;
+  width: min(100%, 400px);
+  display: flex;
+  flex-direction: column;
+}
+
+.vehicleops-login-page .label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #e2e8f0;
+  margin-bottom: 0.5rem;
+}
+
+.vehicleops-login-page .input {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: transparent;
+  color: #f8fafc;
+  border: 1px solid #94a3b8;
+  border-radius: 6px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.vehicleops-login-page .input:focus {
+  outline: none;
+  border-color: #f8fafc;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+}
+
+.vehicleops-login-page .btn {
+  background-color: transparent;
+  color: #f8fafc;
+  padding: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.vehicleops-login-page .btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
