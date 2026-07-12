@@ -38,7 +38,7 @@ export function SignIn({ setPage }) {
         }
     };
 
-    return <div className="sign-in-page">
+    return <div className="signin-page">
         <button className="back-btn" onClick={() => setPage('none')}>Back</button>
         <form className="form" onSubmit={handleSubmit}>
             <div className="username-input">

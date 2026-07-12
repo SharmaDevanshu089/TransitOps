@@ -1,24 +1,26 @@
+/* Main Titlebar Container */
 .titlebar {
     background-color: rgba(255, 255, 255, 0.01);
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    height: 48px; /* Windows 11 natural titlebar height */
+    height: 48px;
     padding-right: 4px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.04); /* Subtle Fluent-style reflection divider */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
 }
 
+/* Base styling for all window control buttons */
 .titlebar .btns {
     background-color: transparent;
     border: none;
     padding: 0;
     margin: 0;
     min-width: 0;
-    color: #c0bfbc; /* GNOME muted label gray default */
+    color: #c0bfbc;
     font-family: monospace;
     font-size: 14px;
-    width: 46px; /* Windows 11 standard button width */
-    height: 100%; /* Spans the full height of the titlebar */
+    width: 46px;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -27,16 +29,19 @@
     transition: background-color 0.15s ease, color 0.15s ease;
 }
 
+/* Hover effects for Minimize and Maximize */
 .titlebar .btns:not(.close-btn):hover {
-    background-color: rgba(53, 132, 228, 0.12); /* GNOME Blue hover highlight */
+    background-color: rgba(53, 132, 228, 0.12);
     color: #faf5f5;
 }
 
+/* Hover effect specifically for the Close button */
 .titlebar .close-btn:hover {
-    background-color: #e81123; /* Windows 11 style red close hover */
+    background-color: #e81123;
     color: #ffffff;
 }
 
+/* Active (click) state for buttons */
 .titlebar .btns:not(.close-btn):active {
     background: rgba(53, 132, 228, 0.25);
 }
