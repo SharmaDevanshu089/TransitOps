@@ -1,6 +1,7 @@
 import { invoke } from "@tauri-apps/api/core";
 import { useState, useEffect } from "react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, BarChart, Bar } from 'recharts';
+import toast from "react-hot-toast";
 import "./AdminPage.css";
 
 export function AdminPage() {
@@ -36,21 +37,20 @@ export function AdminPage() {
 
     const totalCost = financeData.reduce((sum, item) => sum + item.cost, 0);
 
-    const exportToCSV = () => {
+    const exportToCSV = async () => {
         const headers = ["Date,Expense Type,Cost,Description"];
-        const rows = financeData.map(row => 
+        const rows = financeData.map(row =>
             `${row.date},"${row.expense_type}",${row.cost},"${row.description || ''}"`
         );
         const csvContent = headers.concat(rows).join("\n");
-        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement("a");
-        link.setAttribute("href", url);
-        link.setAttribute("download", "transitops_expenses.csv");
-        link.style.visibility = 'hidden';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+
+        try {
+            const filePath = await invoke("export_to_csv", { csvContent });
+            toast.success(`CSV exported to Downloads!`);
+        } catch (error) {
+            console.error(error);
+            toast.error(`Failed to export CSV: ${error}`);
+        }
     };
 
     return (
@@ -64,7 +64,7 @@ export function AdminPage() {
                     </div>
                 </div>
             </header>
-            
+
             {loading ? (
                 <p>Loading analytics...</p>
             ) : (
@@ -124,7 +124,7 @@ export function AdminPage() {
                                     </tr>
                                 ))}
                                 {financeData.length === 0 && (
-                                    <tr><td colSpan="4" style={{textAlign: 'center', padding: '2rem'}}>No transactions found.</td></tr>
+                                    <tr><td colSpan="4" style={{ textAlign: 'center', padding: '2rem' }}>No transactions found.</td></tr>
                                 )}
                             </tbody>
                         </table>

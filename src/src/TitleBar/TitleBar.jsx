@@ -53,8 +53,8 @@ export function TitleBar() {
       <div style={{ display: 'flex', marginLeft: 'auto' }}>
         {/* minimize buton */}
         <button className="btns minimize-btn" onClick={minimizeWindow}>
-          <svg width="12" height="2" viewBox="0 0 12 2">
-            <rect width="12" height="2" fill="currentColor" rx="1" />
+          <svg width="10" height="10" viewBox="0 0 10 10">
+            <rect x="0" y="4.5" width="10" height="1" fill="currentColor" />
           </svg>
         </button>
         {/* maximize button */}

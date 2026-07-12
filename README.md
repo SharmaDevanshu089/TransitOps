@@ -19,11 +19,11 @@ This project stands as a testament to elite human software engineering. While AI
 
 ### 📊 Real-Time Analytics & Financial Dashboard
 *   **Admin Hub:** The `AdminPage` features beautiful, interactive telemetry and financial charts powered by `recharts`.
-*   **Data Export:** Secure, Blob-based CSV exports of all historical financial transactions directly to your local file system, ensuring cross-platform stability.
+*   **Data Export:** Secure, native Rust-powered CSV exports of all historical financial transactions directly to your Downloads folder, completely bypassing webview download restrictions.
 
 ### 🎨 Premium UI/UX Polish
 *   **Translucent Aesthetics:** Leverages native OS capabilities (like Windows 11 Acrylic vibrancy) for a stunning glassmorphism effect.
-*   **Micro-interactions:** Custom minimal scrollbars, unified global button styling, flawless OS-native titlebar integration, and elegant toast notifications provide a world-class user feel.
+*   **Micro-interactions:** Custom minimal scrollbars, unified global button styling, flawless OS-native titlebar integration (with backdrop blur), and elegant toast notifications provide a world-class user feel.
 
 *   **Fully Offline Architecture:** By embedding a SQLite database directly into the application, TransitOps requires zero internet connection to function. This guarantees maximum privacy, zero latency data retrieval, and constant availability for field offices with poor connectivity.
 *   **Tauri v2:** Provides a lightweight, highly secure desktop application wrapper. Unlike Electron, Tauri uses the OS's native webview, resulting in drastically smaller bundle sizes (often under 10MB) and significantly lower RAM usage.
@@ -72,7 +72,7 @@ TransitOps/
 The root React component. Integrates `react-router-dom` using `MemoryRouter` to manage seamless offline navigation without page reloads, and incorporates global components like `TitleBar` and `Footer`.
 
 **`src/MainPages/AdminPage/AdminPage.jsx`**
-A robust Finance Dashboard utilizing `recharts`. It fetches historical expense data to plot interactive telemetry (Expenses Over Time & Breakdown) and provides a highly-secure Blob-based CSV Export functionality.
+A robust Finance Dashboard utilizing `recharts`. It fetches historical expense data to plot interactive telemetry (Expenses Over Time & Breakdown) and provides a highly-secure Native Rust CSV Export functionality.
 
 **`src/MainPages/VehicleOpsPage/VehicleOpsPage.jsx`**
 The central Operational Command center. Renders real-time fleet availability using dynamic donut charts, tracks active dispatch states (`Draft`, `Dispatched`, `Completed`), triggers modal-based trip and maintenance logic, and autonomously monitors driver license expiries.

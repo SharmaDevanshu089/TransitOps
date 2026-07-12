@@ -64,3 +64,11 @@ pub fn log_fuel(app: tauri::AppHandle, vehicle_id: i64, liters: f64, cost: f64, 
 
     Ok("Fuel logged successfully".to_string())
 }
+
+#[command]
+pub fn export_to_csv(app: tauri::AppHandle, csv_content: String) -> Result<String, String> {
+    let download_dir = app.path().download_dir().map_err(|e| e.to_string())?;
+    let file_path = download_dir.join("transitops_expenses.csv");
+    std::fs::write(&file_path, csv_content).map_err(|e| e.to_string())?;
+    Ok(file_path.to_string_lossy().into_owned())
+}
