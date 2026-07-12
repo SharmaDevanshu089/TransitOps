@@ -11,6 +11,24 @@
   padding: 2rem;
 }
 
+.vehicleops-login-page .back-btn {
+  align-self: flex-start;
+  margin-bottom: 2rem;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  color: #cbd5e1;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s ease;
+}
+
+.vehicleops-login-page .back-btn:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+}
+
 .vehicleops-login-page .form {
   background-color: transparent;
   padding: 2.5rem;
@@ -59,4 +77,18 @@
 
 .vehicleops-login-page .btn:hover {
   background-color: rgba(255, 255, 255, 0.1);
+}
+
+.vehicleops-login-page .form-title {
+  color: #f8fafc;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+}
+
+.vehicleops-login-page .form-group {
+  margin-bottom: 1rem;
+}
+
+.vehicleops-login-page .form-group-last {
+  margin-bottom: 1.5rem;
 }

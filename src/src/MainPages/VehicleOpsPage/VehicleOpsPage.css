@@ -1,0 +1,147 @@
+/* VehicleOpsPage.css */
+.vehicleops-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: transparent;
+  color: #f8fafc;
+  font-family: system-ui, sans-serif;
+  padding: 2rem;
+}
+
+.vehicleops-page .page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.vehicleops-page .page-title {
+  font-size: 2rem;
+  margin: 0;
+  color: #ffffff;
+}
+
+.vehicleops-page .logout-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  color: #cbd5e1;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s ease;
+}
+
+.vehicleops-page .logout-btn:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+}
+
+.vehicleops-page .main-content {
+  flex: 1;
+}
+
+.vehicleops-page .table-container {
+  background-color: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow-x: auto;
+}
+
+.vehicleops-page .section-title {
+  font-size: 1.25rem;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  color: #e2e8f0;
+}
+
+.vehicleops-page .loading-text {
+  color: #94a3b8;
+  text-align: center;
+  padding: 2rem 0;
+}
+
+.vehicleops-page .drivers-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.vehicleops-page .drivers-table th,
+.vehicleops-page .drivers-table td {
+  padding: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.vehicleops-page .drivers-table th {
+  color: #94a3b8;
+  font-weight: 500;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.vehicleops-page .drivers-table tr:hover {
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+.vehicleops-page .inactive-row {
+  opacity: 0.5;
+}
+
+.vehicleops-page .no-data {
+  text-align: center;
+  color: #94a3b8;
+  padding: 2rem;
+}
+
+.vehicleops-page .score-badge {
+  padding: 0.25rem 0.5rem;
+  border-radius: 9999px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.vehicleops-page .score-badge.high {
+  background-color: rgba(34, 197, 94, 0.1);
+  color: #4ade80;
+}
+
+.vehicleops-page .score-badge.medium {
+  background-color: rgba(234, 179, 8, 0.1);
+  color: #facc15;
+}
+
+.vehicleops-page .score-badge.low {
+  background-color: rgba(239, 68, 68, 0.1);
+  color: #f87171;
+}
+
+.vehicleops-page .status-badge {
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.vehicleops-page .status-available {
+  background-color: rgba(56, 189, 248, 0.1);
+  color: #7dd3fc;
+}
+
+.vehicleops-page .status-on-trip {
+  background-color: rgba(168, 85, 247, 0.1);
+  color: #c084fc;
+}
+
+.vehicleops-page .status-off-duty {
+  background-color: rgba(148, 163, 184, 0.1);
+  color: #cbd5e1;
+}
+
+.vehicleops-page .status-suspended {
+  background-color: rgba(239, 68, 68, 0.1);
+  color: #f87171;
+}
