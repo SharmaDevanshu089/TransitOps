@@ -23,6 +23,7 @@ export function TitleBar() {
   // minimize Window button
   const minimizeWindow = () => {
     appWindow.minimize();
+    console.log("first")
   };
 
   // maximize Window button
