@@ -1,3 +1,11 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    height: 100vh;
+    background-color: transparent;
+}
+
 /* Global styling for buttons */
 .btn {
     background-color: rgba(56, 189, 248, 0.1);

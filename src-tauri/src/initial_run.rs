@@ -62,6 +62,10 @@ INSERT INTO vehcleOps (name, license_number, license_category, license_expiry, c
 VALUES ('Priya Singh', 'DL-2018-54321', 'Medium Vehicle', '2025-06-30', '9876543211', 'priya.singh@example.com', 98, 'Available', 1, 'Excellent safety record.');
 INSERT INTO vehcleOps (name, license_number, license_category, license_expiry, contact_number, email, safety_score, status, is_active, notes)
 VALUES ('Amit Patel', 'DL-2020-67890', 'Light Vehicle', '2027-09-15', '9876543212', 'amit.patel@example.com', 85, 'Off Duty', 1, 'Currently on leave.');
+INSERT INTO vehcleOps (name, license_number, license_category, license_expiry, contact_number, email, safety_score, status, is_active, notes)
+VALUES ('Suresh Sharma', 'DL-2021-11223', 'Heavy Vehicle', '2024-05-12', '9876543213', 'suresh.sharma@example.com', 78, 'Suspended', 1, 'Suspended pending incident review.');
+INSERT INTO vehcleOps (name, license_number, license_category, license_expiry, contact_number, email, safety_score, status, is_active, notes)
+VALUES ('Kavita Verma', 'DL-2017-99887', 'Medium Vehicle', '2026-08-20', '9876543214', 'kavita.verma@example.com', 100, 'On Trip', 1, 'Top performer this quarter.');
 ";
 
 const DRIVERS_TEST_VALUES: &str = "
@@ -71,6 +75,10 @@ INSERT INTO drivers (name, dob, license_number, license_expiry, truck_number, tr
 VALUES ('Priya Singh', '1988-07-22', 'DL-2018-54321', '2025-06-30', 'HR26CD5678', 8000.0, 1);
 INSERT INTO drivers (name, dob, license_number, license_expiry, truck_number, truck_capacity_kg, is_available)
 VALUES ('Amit Patel', '1990-11-10', 'DL-2020-67890', '2027-09-15', 'GJ08EF9012', 6500.0, 0);
+INSERT INTO drivers (name, dob, license_number, license_expiry, truck_number, truck_capacity_kg, is_available)
+VALUES ('Suresh Sharma', '1982-01-05', 'DL-2021-11223', '2024-05-12', 'MH12GH3456', 10000.0, 0);
+INSERT INTO drivers (name, dob, license_number, license_expiry, truck_number, truck_capacity_kg, is_available)
+VALUES ('Kavita Verma', '1992-04-18', 'DL-2017-99887', '2026-08-20', 'DL01IJ7890', 4500.0, 1);
 ";
 
 const INITIAL_CARGO_PROMPT: &str = "
@@ -94,6 +102,12 @@ INSERT INTO cargos (cargo_name, description, date_available, is_currently_availa
 VALUES ('Furniture Pallet', 'Office desks and chairs', '2026-07-10', 1, 1200.0, 2, 'Priya');
 INSERT INTO cargos (cargo_name, description, date_available, is_currently_available, weight_kg)
 VALUES ('Reserved Chemicals', 'Reserved for project X', '2026-07-01', 0, 300.0);
+INSERT INTO cargos (cargo_name, description, date_available, weight_kg)
+VALUES ('Frozen Foods', 'Perishable frozen goods requiring reefer', '2026-07-15', 850.0);
+INSERT INTO cargos (cargo_name, description, date_available, is_currently_available, weight_kg, driver_id, driver_name)
+VALUES ('Construction Materials', 'Steel beams and concrete mix', '2026-07-08', 0, 4500.0, 1, 'Rajesh');
+INSERT INTO cargos (cargo_name, description, date_available, weight_kg)
+VALUES ('Medical Supplies', 'Urgent medical PPE and masks', '2026-07-14', 150.0);
 ";
 
 const INITIAL_VEHICLES_PROMPT: &str = "CREATE TABLE IF NOT EXISTS vehicles (
@@ -113,6 +127,12 @@ INSERT INTO vehicles (registration_number, name_model, type, max_load_capacity_k
 VALUES ('Van-05', 'Ford Transit', 'Van', 500.0, 15000.0, 45000.0, 'Available');
 INSERT INTO vehicles (registration_number, name_model, type, max_load_capacity_kg, odometer, acquisition_cost, status)
 VALUES ('Truck-12', 'Volvo FH16', 'Heavy Truck', 8000.0, 45000.0, 120000.0, 'Available');
+INSERT INTO vehicles (registration_number, name_model, type, max_load_capacity_kg, odometer, acquisition_cost, status)
+VALUES ('Truck-15', 'Mercedes Actros', 'Heavy Truck', 10000.0, 120500.0, 140000.0, 'On Trip');
+INSERT INTO vehicles (registration_number, name_model, type, max_load_capacity_kg, odometer, acquisition_cost, status)
+VALUES ('Van-08', 'Mercedes Sprinter', 'Van', 650.0, 28000.0, 52000.0, 'In Shop');
+INSERT INTO vehicles (registration_number, name_model, type, max_load_capacity_kg, odometer, acquisition_cost, status)
+VALUES ('Truck-01', 'Tata Prima', 'Medium Truck', 4500.0, 85000.0, 85000.0, 'Available');
 ";
 
 const INITIAL_TRIPS_PROMPT: &str = "CREATE TABLE IF NOT EXISTS trips (
@@ -132,6 +152,14 @@ const INITIAL_TRIPS_PROMPT: &str = "CREATE TABLE IF NOT EXISTS trips (
 const TRIPS_TEST_VALUES: &str = "
 INSERT INTO trips (source, destination, vehicle_id, driver_id, cargo_weight_kg, planned_distance_km, status)
 VALUES ('Warehouse A', 'City Center', 1, 1, 450.0, 25.5, 'Draft');
+INSERT INTO trips (source, destination, vehicle_id, driver_id, cargo_weight_kg, planned_distance_km, status)
+VALUES ('Port Terminal', 'Industrial Park', 2, 2, 7500.0, 120.0, 'Dispatched');
+INSERT INTO trips (source, destination, vehicle_id, driver_id, cargo_weight_kg, planned_distance_km, status)
+VALUES ('Distribution Hub', 'Retail Outlet C', 3, 5, 2000.0, 45.0, 'Completed');
+INSERT INTO trips (source, destination, vehicle_id, driver_id, cargo_weight_kg, planned_distance_km, status)
+VALUES ('Warehouse B', 'Airport Cargo', 1, 3, 300.0, 15.0, 'Cancelled');
+INSERT INTO trips (source, destination, vehicle_id, driver_id, cargo_weight_kg, planned_distance_km, status)
+VALUES ('Factory 1', 'Warehouse A', 5, 2, 4000.0, 210.0, 'Dispatched');
 ";
 
 const INITIAL_MAINTENANCE_LOGS_PROMPT: &str = "CREATE TABLE IF NOT EXISTS maintenance_logs (
@@ -148,6 +176,14 @@ const INITIAL_MAINTENANCE_LOGS_PROMPT: &str = "CREATE TABLE IF NOT EXISTS mainte
 const MAINTENANCE_TEST_VALUES: &str = "
 INSERT INTO maintenance_logs (vehicle_id, maintenance_type, date, cost, status)
 VALUES (2, 'Oil Change', '2026-07-01', 150.0, 'Closed');
+INSERT INTO maintenance_logs (vehicle_id, maintenance_type, date, cost, status)
+VALUES (4, 'Engine Overhaul', '2026-07-05', 3200.0, 'Active');
+INSERT INTO maintenance_logs (vehicle_id, maintenance_type, date, cost, status)
+VALUES (1, 'Tire Replacement', '2026-06-20', 400.0, 'Closed');
+INSERT INTO maintenance_logs (vehicle_id, maintenance_type, date, cost, status)
+VALUES (3, 'Brake Inspection', '2026-07-10', 85.0, 'Closed');
+INSERT INTO maintenance_logs (vehicle_id, maintenance_type, date, cost, status)
+VALUES (5, 'Transmission Fluid', '2026-07-11', 120.0, 'Closed');
 ";
 
 const INITIAL_FUEL_LOGS_PROMPT: &str = "CREATE TABLE IF NOT EXISTS fuel_logs (
@@ -163,6 +199,14 @@ const INITIAL_FUEL_LOGS_PROMPT: &str = "CREATE TABLE IF NOT EXISTS fuel_logs (
 const FUEL_LOGS_TEST_VALUES: &str = "
 INSERT INTO fuel_logs (vehicle_id, liters, cost, date)
 VALUES (1, 40.5, 65.0, '2026-07-10');
+INSERT INTO fuel_logs (vehicle_id, liters, cost, date)
+VALUES (2, 150.0, 240.0, '2026-07-11');
+INSERT INTO fuel_logs (vehicle_id, liters, cost, date)
+VALUES (3, 200.0, 310.0, '2026-07-09');
+INSERT INTO fuel_logs (vehicle_id, liters, cost, date)
+VALUES (5, 80.0, 125.0, '2026-07-12');
+INSERT INTO fuel_logs (vehicle_id, liters, cost, date)
+VALUES (1, 35.0, 56.0, '2026-07-08');
 ";
 
 const INITIAL_EXPENSES_PROMPT: &str = "CREATE TABLE IF NOT EXISTS expenses (
@@ -179,6 +223,14 @@ const INITIAL_EXPENSES_PROMPT: &str = "CREATE TABLE IF NOT EXISTS expenses (
 const EXPENSES_TEST_VALUES: &str = "
 INSERT INTO expenses (vehicle_id, expense_type, cost, date, description)
 VALUES (1, 'Toll', 15.0, '2026-07-10', 'Highway 5 toll');
+INSERT INTO expenses (vehicle_id, expense_type, cost, date, description)
+VALUES (2, 'Maintenance', 150.0, '2026-07-01', 'Oil Change');
+INSERT INTO expenses (vehicle_id, expense_type, cost, date, description)
+VALUES (3, 'Fuel', 310.0, '2026-07-09', 'Refuel on Route 66');
+INSERT INTO expenses (vehicle_id, expense_type, cost, date, description)
+VALUES (4, 'Maintenance', 3200.0, '2026-07-05', 'Engine Overhaul');
+INSERT INTO expenses (vehicle_id, expense_type, cost, date, description)
+VALUES (5, 'Permit', 450.0, '2026-07-02', 'Cross-state transit permit');
 ";
 
 pub fn create_db(database_path: PathBuf) {
