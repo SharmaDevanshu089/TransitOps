@@ -23,21 +23,13 @@ export function TitleBar() {
   // minimize Window button
   const minimizeWindow = () => {
     appWindow.minimize();
-    console.log("first")
   };
 
   // maximize Window button
-  const maximizeWindow = (isMaximized) => {
-    //setting the next maximize to be the opposite of the current maximize
-    const nextMaximized = !isMaximized;
-
-    if (nextMaximized) {
-      appWindow.maximize();
-    } else {
-      appWindow.unmaximize();
-    }
-    // setting the state of maximize
-    setMaximized(nextMaximized);
+  const maximizeWindow = async () => {
+    await appWindow.toggleMaximize();
+    const isMax = await appWindow.isMaximized();
+    setMaximized(isMax);
   };
 
   return (
@@ -51,7 +43,7 @@ export function TitleBar() {
       {/* maximize button */}
       <button
         className="btns maximize-btn"
-        onClick={() => maximizeWindow(maximized)}
+        onClick={maximizeWindow}
       >
         {maximized ? (
           <svg width="10" height="10" viewBox="0 0 10 10">

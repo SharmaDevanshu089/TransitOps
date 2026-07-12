@@ -12,7 +12,7 @@ export function LoginPage(){
                 <button onClick={() => setSignUp('register')}>Register</button>
             </div>
         )}
-        {signUp === "signUp" && <SignUp />}
-        {signUp === "register" && <Register />}
+        {signUp === "signUp" && <SignUp setPage={setSignUp} />}
+        {signUp === "register" && <Register setPage={setSignUp} />}
     </div>)
 }
