@@ -1,0 +1,56 @@
+.main-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 10px 20px;
+    background: rgba(15, 23, 42, 0.7);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+    color: #94a3b8;
+    z-index: 100;
+}
+
+.main-footer a {
+    color: #38bdf8;
+    text-decoration: none;
+    margin: 0 4px;
+    transition: color 0.2s;
+}
+
+.main-footer a:hover {
+    color: #7dd3fc;
+}
+
+.main-footer p {
+    margin: 0;
+}
+
+/* Minimal Scrollbar Styles for Main Pages */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* Adjust layout so content doesn't get hidden behind the fixed footer */
+.client-page, .admin-page, .vehicle-ops-page, .safety-officer-page {
+    padding-bottom: 60px !important;
+}

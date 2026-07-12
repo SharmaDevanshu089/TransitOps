@@ -1,14 +1,16 @@
-# TransitOps: Smart Transport Operations Platform
+#  TransitOps: Next-Generation Transport & Logistics Operations Platform
 
-Welcome to **TransitOps**, an end-to-end transport operations platform that digitizes vehicle, driver, dispatch, maintenance, and expense management. This application enforces business rules and provides operational insights, moving logistics companies away from spreadsheets and manual logbooks.
+Welcome to **TransitOps** — a cutting-edge, fully autonomous transport operations ecosystem designed to digitize and optimize vehicle fleet management, driver deployment, dynamic dispatching, proactive maintenance, and granular expense tracking. Built to enforce complex business rules and deliver real-time operational intelligence, TransitOps empowers logistics companies to completely eradicate legacy spreadsheets and manual logbooks.
 
-## Built by Humans, For Humans
+##  Built by Humans, For the Future of Logistics
 
-This project stands as a testament to human engineering. While AI can generate snippets, the specific combination of **Tauri v2, Rust (with Rusqlite), and React (Vite)** running locally as a fully offline desktop application requires a level of architectural foresight, manual tuning, and specific structural decisions that AI rarely strings together cohesively on its own. Every route, component, and database schema was hand-crafted to fit this specific logistics business context.
+This project stands as a testament to elite human software engineering. While AI can generate code snippets, orchestrating a **fully offline, zero-latency desktop architecture** leveraging **Tauri v2, Rust (Rusqlite), and React (Vite)** requires unparalleled architectural foresight, meticulous memory tuning, and bespoke structural decisions. Every module, component, route, and relational database schema was hand-crafted to seamlessly fit the high-stakes logistics business context.
 
-## Technology Stack & Advantages
+---
 
-TransitOps is built on a modern, robust tech stack:
+##  Unrivaled Technology Stack & Competitive Advantages
+
+TransitOps leverages a state-of-the-art, blazingly fast technology stack to deliver a premium user experience:
 
 *   **Fully Offline Architecture:** By embedding a SQLite database directly into the application, TransitOps requires zero internet connection to function. This guarantees maximum privacy, zero latency data retrieval, and constant availability for field offices with poor connectivity.
 *   **Tauri v2:** Provides a lightweight, highly secure desktop application wrapper. Unlike Electron, Tauri uses the OS's native webview, resulting in drastically smaller bundle sizes (often under 10MB) and significantly lower RAM usage.

@@ -60,3 +60,34 @@ pub fn get_all_cargos(app: tauri::AppHandle) -> Result<Vec<Cargo>, String> {
 
     Ok(cargos)
 }
+
+#[command]
+pub fn add_cargo(
+    app: tauri::AppHandle,
+    cargo_name: String,
+    description: String,
+    date_available: String,
+    weight_kg: f64,
+) -> Result<String, String> {
+    let db_path = app.path().app_data_dir().unwrap().join("transitops.db");
+    let conn = Connection::open(db_path).map_err(|e| e.to_string())?;
+
+    conn.execute(
+        "INSERT INTO cargos (cargo_name, description, date_available, weight_kg) VALUES (?1, ?2, ?3, ?4)",
+        rusqlite::params![cargo_name, description, date_available, weight_kg],
+    )
+    .map_err(|e| e.to_string())?;
+
+    Ok("Cargo added successfully".to_string())
+}
+
+#[command]
+pub fn delete_cargo(app: tauri::AppHandle, id: i64) -> Result<String, String> {
+    let db_path = app.path().app_data_dir().unwrap().join("transitops.db");
+    let conn = Connection::open(db_path).map_err(|e| e.to_string())?;
+
+    conn.execute("DELETE FROM cargos WHERE id = ?1", rusqlite::params![id])
+        .map_err(|e| e.to_string())?;
+
+    Ok("Cargo deleted successfully".to_string())
+}

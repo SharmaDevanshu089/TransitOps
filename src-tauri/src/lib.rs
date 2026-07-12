@@ -49,6 +49,8 @@ pub fn run() {
             authenticate::authenticate_user,
             signon::create_user,
             client_manager::get_all_cargos,
+            client_manager::add_cargo,
+            client_manager::delete_cargo,
             driver_edit::get_all_drivers,
             driver_edit::get_all_vehcle_ops,
             vehicles::get_all_vehicles,

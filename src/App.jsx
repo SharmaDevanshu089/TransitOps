@@ -8,6 +8,7 @@ import { AdminPage } from "./src/MainPages/AdminPage/AdminPage";
 import { ClientPage } from "./src/MainPages/ClientPage/ClientPage";
 import { SafetyOfficerPage } from "./src/MainPages/SafetyOfficerPage/SafetyOfficerPage";
 import { VehicleOpsPage } from "./src/MainPages/VehicleOpsPage/VehicleOpsPage";
+import { Footer } from "./src/Footer/Footer";
 
 export default function App() {
   return (
@@ -23,6 +24,7 @@ export default function App() {
         <Route path="/safety" element={<SafetyOfficerPage />} />
         <Route path="/vehicle-ops" element={<VehicleOpsPage />} />
       </Routes>
+      <Footer />
     </MemoryRouter>
   );
 }
