@@ -36,6 +36,34 @@ const INITIAL_DRIVERS_PROMPT: &str = "CREATE TABLE IF NOT EXISTS drivers (
     account_created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );";
 
+const INITIAL_VEHCLE_OPS_PROMPT: &str = "CREATE TABLE IF NOT EXISTS vehcleOps (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL,
+  license_number TEXT UNIQUE,
+  license_category TEXT,
+  license_expiry DATE,
+  contact_number TEXT,
+  email TEXT UNIQUE,
+  safety_score INTEGER DEFAULT 100,
+  status TEXT NOT NULL DEFAULT 'Available', -- Available, On Trip, Off Duty, Suspended
+  is_active INTEGER NOT NULL DEFAULT 1,     -- 1 = active, 0 = inactive (soft-delete)
+  notes TEXT,
+  created_at DATETIME DEFAULT (datetime('now'))
+);
+
+CREATE INDEX IF NOT EXISTS idx_vehcleOps_status ON vehcleOps(status);
+CREATE INDEX IF NOT EXISTS idx_vehcleOps_license_expiry ON vehcleOps(license_expiry);
+CREATE INDEX IF NOT EXISTS idx_vehcleOps_active ON vehcleOps(is_active);";
+
+const VEHCLE_OPS_TEST_VALUES: &str = "
+INSERT INTO vehcleOps (name, license_number, license_category, license_expiry, contact_number, email, safety_score, status, is_active, notes)
+VALUES ('Rajesh Kumar', 'DL-2019-12345', 'Heavy Vehicle', '2026-12-31', '9876543210', 'rajesh.kumar@example.com', 95, 'Available', 1, 'Experienced long-haul driver.');
+INSERT INTO vehcleOps (name, license_number, license_category, license_expiry, contact_number, email, safety_score, status, is_active, notes)
+VALUES ('Priya Singh', 'DL-2018-54321', 'Medium Vehicle', '2025-06-30', '9876543211', 'priya.singh@example.com', 98, 'Available', 1, 'Excellent safety record.');
+INSERT INTO vehcleOps (name, license_number, license_category, license_expiry, contact_number, email, safety_score, status, is_active, notes)
+VALUES ('Amit Patel', 'DL-2020-67890', 'Light Vehicle', '2027-09-15', '9876543212', 'amit.patel@example.com', 85, 'Off Duty', 1, 'Currently on leave.');
+";
+
 const DRIVERS_TEST_VALUES: &str = "
 INSERT INTO drivers (name, dob, license_number, license_expiry, truck_number, truck_capacity_kg, is_available)
 VALUES ('Rajesh Kumar', '1985-03-15', 'DL-2019-12345', '2026-12-31', 'HR26AB1234', 5000.0, 1);
@@ -93,6 +121,10 @@ pub fn create_db(database_path: PathBuf) {
     conn.execute_batch(&INITIAL_DRIVERS_PROMPT)
         .expect("ERROR_IN_DRIVERS_TABLE");
 
+    // Create vehcleOps table
+    conn.execute_batch(&INITIAL_VEHCLE_OPS_PROMPT)
+        .expect("ERROR_IN_VEHCLE_OPS_TABLE");
+
     // Insert account test data
     conn.execute_batch(&INITIAL_CREATE_PROMPT)
         .expect("ERROR_IN_ACCOUNTS_DATA");
@@ -100,6 +132,10 @@ pub fn create_db(database_path: PathBuf) {
     // Insert driver test data
     conn.execute_batch(&DRIVERS_TEST_VALUES)
         .expect("ERROR_IN_DRIVERS_DATA");
+
+    // Insert vehcleOps test data
+    conn.execute_batch(&VEHCLE_OPS_TEST_VALUES)
+        .expect("ERROR_IN_VEHCLE_OPS_DATA");
 
     // Create cargos table
     conn.execute_batch(&INITIAL_CARGO_PROMPT)
@@ -111,3 +147,4 @@ pub fn create_db(database_path: PathBuf) {
 
     println!("Database initialized successfully!");
 }
+1

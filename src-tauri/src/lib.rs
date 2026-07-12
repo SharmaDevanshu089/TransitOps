@@ -5,6 +5,7 @@ use window_vibrancy::apply_acrylic;
 
 mod authenticate;
 mod client_manager;
+mod driver_edit;
 mod initial_run;
 mod signon;
 
@@ -43,7 +44,9 @@ pub fn run() {
             greet,
             authenticate::authenticate_user,
             signon::create_user,
-            client_manager::get_all_cargos
+            client_manager::get_all_cargos,
+            driver_edit::get_all_drivers,
+            driver_edit::get_all_vehcle_ops
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
