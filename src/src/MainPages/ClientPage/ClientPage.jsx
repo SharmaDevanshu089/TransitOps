@@ -28,17 +28,25 @@ export function ClientPage() {
                 <table className="data-table">
                     <thead>
                         <tr>
-                            <th>Vehicle Number</th>
-                            <th>Life-cycle</th>
-                            <th>Maintenance</th>
+                            <th>Cargo Name</th>
+                            <th>Description</th>
+                            <th>Weight (kg)</th>
+                            <th>Date Available</th>
+                            <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
                         {dataByUser.map((row) => (
                             <tr key={row.id}>
-                                <td>{row.vehicleNumber}</td>
-                                <td>{row.lifeCycle}</td>
-                                <td>{row.maintenance}</td>
+                                <td>{row.cargo_name}</td>
+                                <td>{row.description || 'N/A'}</td>
+                                <td>{row.weight_kg ? `${row.weight_kg} kg` : 'N/A'}</td>
+                                <td>{row.date_available || 'N/A'}</td>
+                                <td>
+                                    <span className={`status-badge ${row.is_currently_available ? 'status-good' : 'status-danger'}`}>
+                                        {row.is_currently_available ? 'Available' : 'Reserved'}
+                                    </span>
+                                </td>
                             </tr>
                         ))}
                     </tbody>

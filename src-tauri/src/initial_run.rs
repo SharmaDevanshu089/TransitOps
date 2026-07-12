@@ -96,6 +96,91 @@ INSERT INTO cargos (cargo_name, description, date_available, is_currently_availa
 VALUES ('Reserved Chemicals', 'Reserved for project X', '2026-07-01', 0, 300.0);
 ";
 
+const INITIAL_VEHICLES_PROMPT: &str = "CREATE TABLE IF NOT EXISTS vehicles (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  registration_number TEXT UNIQUE NOT NULL,
+  name_model TEXT NOT NULL,
+  type TEXT,
+  max_load_capacity_kg REAL NOT NULL,
+  odometer REAL NOT NULL DEFAULT 0.0,
+  acquisition_cost REAL,
+  status TEXT NOT NULL DEFAULT 'Available', -- Available, On Trip, In Shop, Retired
+  created_at DATETIME DEFAULT (datetime('now'))
+);";
+
+const VEHICLES_TEST_VALUES: &str = "
+INSERT INTO vehicles (registration_number, name_model, type, max_load_capacity_kg, odometer, acquisition_cost, status)
+VALUES ('Van-05', 'Ford Transit', 'Van', 500.0, 15000.0, 45000.0, 'Available');
+INSERT INTO vehicles (registration_number, name_model, type, max_load_capacity_kg, odometer, acquisition_cost, status)
+VALUES ('Truck-12', 'Volvo FH16', 'Heavy Truck', 8000.0, 45000.0, 120000.0, 'Available');
+";
+
+const INITIAL_TRIPS_PROMPT: &str = "CREATE TABLE IF NOT EXISTS trips (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  source TEXT NOT NULL,
+  destination TEXT NOT NULL,
+  vehicle_id INTEGER,
+  driver_id INTEGER,
+  cargo_weight_kg REAL,
+  planned_distance_km REAL,
+  status TEXT NOT NULL DEFAULT 'Draft', -- Draft, Dispatched, Completed, Cancelled
+  created_at DATETIME DEFAULT (datetime('now')),
+  FOREIGN KEY(vehicle_id) REFERENCES vehicles(id) ON DELETE SET NULL,
+  FOREIGN KEY(driver_id) REFERENCES vehcleOps(id) ON DELETE SET NULL
+);";
+
+const TRIPS_TEST_VALUES: &str = "
+INSERT INTO trips (source, destination, vehicle_id, driver_id, cargo_weight_kg, planned_distance_km, status)
+VALUES ('Warehouse A', 'City Center', 1, 1, 450.0, 25.5, 'Draft');
+";
+
+const INITIAL_MAINTENANCE_LOGS_PROMPT: &str = "CREATE TABLE IF NOT EXISTS maintenance_logs (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  vehicle_id INTEGER NOT NULL,
+  maintenance_type TEXT NOT NULL,
+  date DATE NOT NULL,
+  cost REAL NOT NULL,
+  status TEXT NOT NULL DEFAULT 'Active', -- Active, Closed
+  created_at DATETIME DEFAULT (datetime('now')),
+  FOREIGN KEY(vehicle_id) REFERENCES vehicles(id) ON DELETE CASCADE
+);";
+
+const MAINTENANCE_TEST_VALUES: &str = "
+INSERT INTO maintenance_logs (vehicle_id, maintenance_type, date, cost, status)
+VALUES (2, 'Oil Change', '2026-07-01', 150.0, 'Closed');
+";
+
+const INITIAL_FUEL_LOGS_PROMPT: &str = "CREATE TABLE IF NOT EXISTS fuel_logs (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  vehicle_id INTEGER NOT NULL,
+  liters REAL NOT NULL,
+  cost REAL NOT NULL,
+  date DATE NOT NULL,
+  created_at DATETIME DEFAULT (datetime('now')),
+  FOREIGN KEY(vehicle_id) REFERENCES vehicles(id) ON DELETE CASCADE
+);";
+
+const FUEL_LOGS_TEST_VALUES: &str = "
+INSERT INTO fuel_logs (vehicle_id, liters, cost, date)
+VALUES (1, 40.5, 65.0, '2026-07-10');
+";
+
+const INITIAL_EXPENSES_PROMPT: &str = "CREATE TABLE IF NOT EXISTS expenses (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  vehicle_id INTEGER NOT NULL,
+  expense_type TEXT NOT NULL,
+  cost REAL NOT NULL,
+  date DATE NOT NULL,
+  description TEXT,
+  created_at DATETIME DEFAULT (datetime('now')),
+  FOREIGN KEY(vehicle_id) REFERENCES vehicles(id) ON DELETE CASCADE
+);";
+
+const EXPENSES_TEST_VALUES: &str = "
+INSERT INTO expenses (vehicle_id, expense_type, cost, date, description)
+VALUES (1, 'Toll', 15.0, '2026-07-10', 'Highway 5 toll');
+";
+
 pub fn create_db(database_path: PathBuf) {
     println!("Creating Database at : {:?}", database_path);
     // Creating new db file if it doesn't exists
@@ -144,6 +229,21 @@ pub fn create_db(database_path: PathBuf) {
     // Insert cargo test data
     conn.execute_batch(&CARGO_TEST_VALUES)
         .expect("ERROR_IN_CARGO_DATA");
+
+    conn.execute_batch(&INITIAL_VEHICLES_PROMPT).expect("ERROR_IN_VEHICLES_TABLE");
+    conn.execute_batch(&VEHICLES_TEST_VALUES).expect("ERROR_IN_VEHICLES_DATA");
+    
+    conn.execute_batch(&INITIAL_TRIPS_PROMPT).expect("ERROR_IN_TRIPS_TABLE");
+    conn.execute_batch(&TRIPS_TEST_VALUES).expect("ERROR_IN_TRIPS_DATA");
+
+    conn.execute_batch(&INITIAL_MAINTENANCE_LOGS_PROMPT).expect("ERROR_IN_MAINT_TABLE");
+    conn.execute_batch(&MAINTENANCE_TEST_VALUES).expect("ERROR_IN_MAINT_DATA");
+
+    conn.execute_batch(&INITIAL_FUEL_LOGS_PROMPT).expect("ERROR_IN_FUEL_TABLE");
+    conn.execute_batch(&FUEL_LOGS_TEST_VALUES).expect("ERROR_IN_FUEL_DATA");
+
+    conn.execute_batch(&INITIAL_EXPENSES_PROMPT).expect("ERROR_IN_EXPENSES_TABLE");
+    conn.execute_batch(&EXPENSES_TEST_VALUES).expect("ERROR_IN_EXPENSES_DATA");
 
     println!("Database initialized successfully!");
 }

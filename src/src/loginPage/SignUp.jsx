@@ -1,60 +1,64 @@
 import { invoke } from "@tauri-apps/api/core";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 import "./SignUp.css";
 
-export function SignIn({ setPage }) {
-
-    const [error, setError] = useState(false)
+export function SignIn() {
+    const [error, setError] = useState(false);
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
-        //to prevent refresh
         e.preventDefault();
-
-        //to get data from form
         const formData = new FormData(e.target);
         const data = Object.fromEntries(formData.entries());
 
         try {
-            // to get the user role from database
             const role = await invoke("authenticate_user", {
                 username: data.username,
                 password: data.password,
             });
-            // condition to check if role is defined or not 
+            
             if (role) {
-                console.log(`Success! Logged in as: ${role}`);
-                // here we will assign page as per data given
-                setError(false)
+                toast.success(`Logged in as: ${role}`);
+                setError(false);
+                
+                if (role === "Client") navigate("/client");
+                else if (role === "Admin") navigate("/admin");
+                else if (role === "Safety Officer") navigate("/safety");
+                else if (role === "VehicleOps") navigate("/vehicle-ops");
             } else {
-                console.log("Login failed: Invalid username or password.");
-                // Now it is working
-
-                setError(true)
+                toast.error("Invalid username or password.");
+                setError(true);
             }
-            // catch any error
         } catch (err) {
             console.error("error:", err);
-            setError(true)
+            toast.error(err.toString());
+            setError(true);
         }
     };
 
-    return <div className="signin-page">
-        <form className="form" onSubmit={handleSubmit}>
-            <div className="username-input">
-                <label className="label">User Name</label><br /><br />
-                <input className="input" type="text" name="username" required />
-            </div>
+    return (
+        <div className="signin-page">
+            <form className="form" onSubmit={handleSubmit}>
+                <div className="username-input">
+                    <label className="label">User Name</label><br /><br />
+                    <input className="input" type="text" name="username" required />
+                </div>
+                <br />
+                <div className="password-input">
+                    <label className="label">Password</label><br /><br />
+                    <input className="input" type="password" name="password" required />
+                </div>
+                {error && <span className="error-message">Wrong Username or Password</span>}
+                <br />
+                <button className="btn" type="submit">Login</button>
+            </form>
             <br />
-            <div className="password-input">
-                <label className="label">Password</label><br /><br />
-                <input className="input" type="password" name="password" required />
-            </div>
-            {error && <span className="error-message">Wrong Username or Password</span>}
             <br />
-            <button className="btn" type="submit">Login</button>
-        </form>
-        <br />
-        <br />
-        <p>Don't have an account?    &nbsp;&nbsp;&nbsp;<button className="btn link-btn" type="button" onClick={() => setPage('register')}>Register</button></p>
-    </div>
+            <p>Don't have an account? &nbsp;&nbsp;&nbsp;
+                <button className="btn link-btn" type="button" onClick={() => navigate('/register')}>Register</button>
+            </p>
+        </div>
+    );
 }

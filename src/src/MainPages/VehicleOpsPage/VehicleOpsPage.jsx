@@ -1,53 +1,125 @@
 import { useState, useEffect } from "react";
 import { invoke } from "@tauri-apps/api/core";
+import toast from "react-hot-toast";
 import "./VehicleOpsPage.css";
 
 export function VehicleOpsPage() {
-    //declaring few states
-    const [drivers, setDrivers] = useState([]);
+    const [vehicles, setVehicles] = useState([]);
+    const [trips, setTrips] = useState([]);
     const [loading, setLoading] = useState(true);
+    
+    // Modal states
+    const [showTripModal, setShowTripModal] = useState(false);
+    const [showMaintModal, setShowMaintModal] = useState(false);
 
-    // loading driver details once opening the page
     useEffect(() => {
-        fetchDrivers();
+        fetchData();
     }, []);
 
-    // to get data from backend
-    const fetchDrivers = async () => {
+    const fetchData = async () => {
         try {
-            const data = await invoke("get_all_drivers");
-            setDrivers(data);
+            const vData = await invoke("get_all_vehicles");
+            const tData = await invoke("get_all_trips");
+            setVehicles(vData);
+            setTrips(tData);
         } catch (error) {
-            console.error("Error in fetching drivers:", error);
-            
+            console.error("Error fetching data:", error);
+            toast.error("Failed to load operations data");
         } finally {
             setLoading(false);
         }
     };
 
-    const totalDrivers = drivers.length;
-    const availableCount = drivers.filter(d => d.is_available).length;
-    const unavailableCount = totalDrivers - availableCount;
-    const availablePercent = totalDrivers === 0 ? 0 : (availableCount / totalDrivers) * 100;
+    const handleCreateTrip = async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const data = Object.fromEntries(formData.entries());
+        
+        try {
+            await invoke("create_trip", {
+                source: data.source,
+                destination: data.destination,
+                vehicleId: parseInt(data.vehicle_id),
+                driverId: parseInt(data.driver_id),
+                cargoWeightKg: parseFloat(data.cargo_weight),
+                plannedDistanceKm: parseFloat(data.planned_distance)
+            });
+            toast.success("Trip created successfully!");
+            setShowTripModal(false);
+            fetchData();
+        } catch (error) {
+            toast.error(error.toString());
+        }
+    };
+
+    const handleLogMaintenance = async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const data = Object.fromEntries(formData.entries());
+        
+        try {
+            await invoke("log_maintenance", {
+                vehicleId: parseInt(data.vehicle_id),
+                maintenanceType: data.maintenance_type,
+                date: data.date,
+                cost: parseFloat(data.cost)
+            });
+            toast.success("Maintenance logged!");
+            setShowMaintModal(false);
+            fetchData();
+        } catch (error) {
+            toast.error(error.toString());
+        }
+    };
+
+    const handleDispatch = async (tripId) => {
+        try {
+            await invoke("dispatch_trip", { tripId });
+            toast.success("Trip dispatched!");
+            fetchData();
+        } catch (error) {
+            toast.error(error.toString());
+        }
+    };
+
+    const handleComplete = async (tripId) => {
+        try {
+            await invoke("complete_trip", { tripId });
+            toast.success("Trip completed!");
+            fetchData();
+        } catch (error) {
+            toast.error(error.toString());
+        }
+    };
+
+    const totalVehicles = vehicles.length;
+    const availableCount = vehicles.filter(v => v.status === 'Available').length;
+    const unavailableCount = totalVehicles - availableCount;
+    const availablePercent = totalVehicles === 0 ? 0 : (availableCount / totalVehicles) * 100;
 
     return (
         <div className="vehicleops-page">
             <header className="page-header">
                 <h1 className="page-title">Vehicle Operations Dashboard</h1>
+                <div className="action-buttons">
+                    <button className="btn" onClick={() => setShowTripModal(true)}>+ Create Trip</button>
+                    &nbsp;&nbsp;
+                    <button className="btn" onClick={() => setShowMaintModal(true)}>+ Log Maintenance</button>
+                </div>
             </header>
-{/* I have No Idea how is this pie chart created */}
+
             <main className="main-content">
-                {!loading && totalDrivers > 0 && (
+                {!loading && totalVehicles > 0 && (
                     <div className="stats-overview">
                         <div className="chart-card">
-                            <h3 className="section-title">Availability Overview</h3>
+                            <h3 className="section-title">Fleet Availability</h3>
                             <div className="donut-wrapper">
                                 <div 
                                     className="donut-chart" 
                                     style={{ background: `conic-gradient(#7dd3fc ${availablePercent}%, #334155 ${availablePercent}% 100%)` }}
                                 >
                                     <div className="donut-hole">
-                                        <span className="donut-total">{totalDrivers}</span>
+                                        <span className="donut-total">{totalVehicles}</span>
                                         <span className="donut-label">Total</span>
                                     </div>
                                 </div>
@@ -67,48 +139,111 @@ export function VehicleOpsPage() {
                 )}
 
                 <div className="table-container">
-                    <h2 className="section-title">Drivers & Trucks Roster</h2>
-                    {/* if data is loading then loading else continue */}
+                    <h2 className="section-title">Active Trips</h2>
                     {loading ? (
-                        <p className="loading-text">Loading drivers data...</p>
+                        <p className="loading-text">Loading...</p>
                     ) : (
                         <table className="drivers-table">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>Name</th>
-                                    <th>License No.</th>
-                                    <th>Truck No.</th>
-                                    <th>Capacity (kg)</th>
+                                    <th>Trip ID</th>
+                                    <th>Source</th>
+                                    <th>Destination</th>
                                     <th>Status</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {/* mapping the driver details and after that setting the condition for no driver */}
-                                {drivers.map((driver) => (
-                                    <tr key={driver.id} className={driver.is_available ? "" : "inactive-row"}>
-                                        <td>{driver.id}</td>
-                                        <td>{driver.name}</td>
-                                        <td>{driver.license_number}</td>
-                                        <td>{driver.truck_number}</td>
-                                        <td>{driver.truck_capacity_kg}</td>
+                                {trips.map((trip) => (
+                                    <tr key={trip.id}>
+                                        <td>#{trip.id}</td>
+                                        <td>{trip.source}</td>
+                                        <td>{trip.destination}</td>
                                         <td>
-                                            <span className={`status-badge ${driver.is_available ? 'status-available' : 'status-off-duty'}`}>
-                                                {driver.is_available ? 'Available' : 'Unavailable'}
+                                            <span className={`status-badge status-${trip.status.toLowerCase().replace(' ', '-')}`}>
+                                                {trip.status}
                                             </span>
+                                        </td>
+                                        <td>
+                                            {trip.status === 'Draft' && (
+                                                <button className="btn-small" onClick={() => handleDispatch(trip.id)}>Dispatch</button>
+                                            )}
+                                            {trip.status === 'Dispatched' && (
+                                                <button className="btn-small btn-success" onClick={() => handleComplete(trip.id)}>Complete</button>
+                                            )}
                                         </td>
                                     </tr>
                                 ))}
-                                {drivers.length === 0 && (
-                                    <tr>
-                                        <td colSpan="6" className="no-data">No drivers found.</td>
-                                    </tr>
+                                {trips.length === 0 && (
+                                    <tr><td colSpan="5" className="no-data">No trips found.</td></tr>
                                 )}
                             </tbody>
                         </table>
                     )}
                 </div>
             </main>
+
+            {/* Trip Modal */}
+            {showTripModal && (
+                <div className="modal-overlay">
+                    <div className="modal-content">
+                        <h2>Create New Trip</h2>
+                        <form onSubmit={handleCreateTrip}>
+                            <input name="source" placeholder="Source" required className="input" />
+                            <br/><br/>
+                            <input name="destination" placeholder="Destination" required className="input" />
+                            <br/><br/>
+                            <select name="vehicle_id" required className="select">
+                                <option value="">Select Vehicle</option>
+                                {vehicles.filter(v => v.status === 'Available').map(v => (
+                                    <option key={v.id} value={v.id}>{v.registration_number} - {v.name_model} (Max: {v.max_load_capacity_kg}kg)</option>
+                                ))}
+                            </select>
+                            <br/><br/>
+                            <input name="driver_id" type="number" placeholder="Driver ID (e.g. 1)" required className="input" />
+                            <br/><br/>
+                            <input name="cargo_weight" type="number" step="0.1" placeholder="Cargo Weight (kg)" required className="input" />
+                            <br/><br/>
+                            <input name="planned_distance" type="number" step="0.1" placeholder="Planned Distance (km)" required className="input" />
+                            <br/><br/>
+                            <div className="modal-actions">
+                                <button type="submit" className="btn">Submit</button>
+                                &nbsp;&nbsp;
+                                <button type="button" className="btn" style={{background: '#334155'}} onClick={() => setShowTripModal(false)}>Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
+
+            {/* Maintenance Modal */}
+            {showMaintModal && (
+                <div className="modal-overlay">
+                    <div className="modal-content">
+                        <h2>Log Maintenance</h2>
+                        <form onSubmit={handleLogMaintenance}>
+                            <select name="vehicle_id" required className="select">
+                                <option value="">Select Vehicle</option>
+                                {vehicles.map(v => (
+                                    <option key={v.id} value={v.id}>{v.registration_number}</option>
+                                ))}
+                            </select>
+                            <br/><br/>
+                            <input name="maintenance_type" placeholder="Maintenance Type (e.g. Oil Change)" required className="input" />
+                            <br/><br/>
+                            <input name="date" type="date" required className="input" />
+                            <br/><br/>
+                            <input name="cost" type="number" step="0.01" placeholder="Cost ($)" required className="input" />
+                            <br/><br/>
+                            <div className="modal-actions">
+                                <button type="submit" className="btn">Submit</button>
+                                &nbsp;&nbsp;
+                                <button type="button" className="btn" style={{background: '#334155'}} onClick={() => setShowMaintModal(false)}>Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

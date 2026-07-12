@@ -223,3 +223,38 @@
   border-radius: 50%;
 }
 
+/* Modals */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: #1e293b;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 400px;
+  max-width: 90%;
+  color: #f8fafc;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.modal-content h2 {
+  margin-top: 0;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Specific Trip Statuses */
+.status-draft { background-color: rgba(148, 163, 184, 0.1); color: #cbd5e1; }
+.status-dispatched { background-color: rgba(168, 85, 247, 0.1); color: #c084fc; }
+.status-completed { background-color: rgba(34, 197, 94, 0.1); color: #4ade80; }
+.status-cancelled { background-color: rgba(239, 68, 68, 0.1); color: #f87171; }

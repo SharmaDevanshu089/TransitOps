@@ -1,53 +1,48 @@
 import { invoke } from "@tauri-apps/api/core";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 import "./Register.css";
 
-export function Register({ setPage }) {
+export function Register() {
+    const navigate = useNavigate();
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         const formData = new FormData(e.target);
         const data = Object.fromEntries(formData.entries());
 
-        // 1. Verify passwords match before talking to the backend
         if (data.password !== data.confirmPassword) {
-            console.error("Passwords do not match!");
-            // You should probably set an error state here to show the user
+            toast.error("Passwords do not match!");
             return;
         }
 
         try {
             const successMessage = await invoke("create_user", {
-                // 2. These keys MUST exactly match the camelCase versions of your Rust parameters
-                usernameInput: data.username,    // Sending the email to act as the username in the DB
-                passwordInput: data.password, // Matching password_input in Rust
-                roleInput: data.role          // Matching role_input in Rust
+                usernameInput: data.username,
+                passwordInput: data.password,
+                roleInput: data.role
             });
 
-            console.log(successMessage);
-            // On success, redirect to login page
-            //ONLY CHANGE THAT HAPPENED
-            // if role is VehicleOps, then redirect to VehicleOpsLogin page
+            toast.success(successMessage);
+            
             if(data.role === "VehicleOps"){
-                setPage("VehicleOpsLogin")
+                navigate("/vehicle-ops-login");
             }
             else{
-                setPage(data.role)
+                navigate("/");
             }
-            
-
         } catch (err) {
             console.error("Backend error:", err);
+            toast.error(err.toString());
         }
     };
 
     return <div className="register-page">
-        {/* back button to go again his/her choice */}
-        <button className="back-btn" onClick={() => setPage('signIn')}>Back</button>
-        {/* form to register */}
+        <button className="back-btn" onClick={() => navigate('/')}>Back</button>
         <form className="form" onSubmit={handleSubmit}>
             <div className="username-input">
                 <label className="label">User Name</label><br /><br />
-                {/* required => for the confirmation like no submit without it */}
                 <input className="input" type="text" name="username" required />
             </div>
             <br />
@@ -72,7 +67,7 @@ export function Register({ setPage }) {
         </form>
         <br />
         <br />
-        <p>Already have an account? <button className="btn" type="button" onClick={() => setPage('signIn')}>
+        <p>Already have an account? <button className="btn" type="button" onClick={() => navigate('/')}>
             Login
         </button></p>
     </div>

@@ -8,6 +8,10 @@ mod client_manager;
 mod driver_edit;
 mod initial_run;
 mod signon;
+mod vehicles;
+mod trips;
+mod maintenance;
+mod finance;
 
 // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
 #[tauri::command]
@@ -46,7 +50,17 @@ pub fn run() {
             signon::create_user,
             client_manager::get_all_cargos,
             driver_edit::get_all_drivers,
-            driver_edit::get_all_vehcle_ops
+            driver_edit::get_all_vehcle_ops,
+            vehicles::get_all_vehicles,
+            vehicles::add_vehicle,
+            trips::get_all_trips,
+            trips::create_trip,
+            trips::dispatch_trip,
+            trips::complete_trip,
+            maintenance::log_maintenance,
+            maintenance::close_maintenance,
+            finance::get_expenses,
+            finance::log_fuel
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

@@ -1,18 +1,23 @@
 import { invoke } from "@tauri-apps/api/core";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 import "./VehicleOpsLogin.css";
 
-export function VehicleOpsLogin({ username, setPage }) {
+export function VehicleOpsLogin() {
+    const navigate = useNavigate();
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
         const data = Object.fromEntries(formData.entries());
         
-        setPage("VehicleOps")
+        toast.success("Driver details registered successfully!");
+        navigate("/");
     };
 
     return (
         <div className="vehicleops-login-page">
-            <button className="back-btn" onClick={() => setPage('register')}>Back</button>
+            <button className="back-btn" onClick={() => navigate('/register')}>Back</button>
             <form className="form" onSubmit={handleSubmit}>
                 <h2 className="form-title">Driver Details</h2>
                 
