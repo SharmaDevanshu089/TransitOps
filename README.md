@@ -4,6 +4,13 @@
 
 Welcome to **TransitOps** — a cutting-edge, fully autonomous transport operations ecosystem designed to digitize and optimize vehicle fleet management, driver deployment, dynamic dispatching, proactive maintenance, and granular expense tracking. Built to enforce complex business rules and deliver real-time operational intelligence, TransitOps empowers logistics companies to completely eradicate legacy spreadsheets and manual logbooks.
 
+## 📸 App Screenshots
+
+| | | |
+|:---:|:---:|:---:|
+| ![1](1.png) | ![2](2.png) | ![3](3.png) |
+| ![5](5.png) | ![6](6.png) | ![7](7.png) |
+
 ## 🗄️ Why SQLite over a Cloud DBMS?
 
 A common question is why TransitOps relies on an embedded SQLite database rather than a traditional cloud-based Relational Database Management System (RDBMS). The decision was highly intentional and driven by the following factors:
