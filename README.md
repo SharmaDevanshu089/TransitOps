@@ -8,8 +8,8 @@ Welcome to **TransitOps** — a cutting-edge, fully autonomous transport operati
 
 | | | |
 |:---:|:---:|:---:|
-| ![1](1.png) | ![2](2.png) | ![3](3.png) |
-| ![5](5.png) | ![6](6.png) | ![7](7.png) |
+| ![Financial Analyst Interface](1.png) | ![Finance Related Graphs](2.png) | ![Log maintenance](3.png) |
+| ![driver operation page](5.png) | ![User Registration Page](6.png) | ![User Sign in Page](7.png) |
 
 ## 🗄️ Why SQLite over a Cloud DBMS?
 
