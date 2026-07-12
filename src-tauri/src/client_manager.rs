@@ -1,6 +1,7 @@
 use rusqlite::{Connection, Result};
 use serde::Serialize;
 use tauri::command;
+use tauri::Manager;
 
 #[derive(Serialize)]
 pub struct Cargo {
@@ -13,13 +14,11 @@ pub struct Cargo {
     driver_id: Option<i64>,
     driver_name: Option<String>,
     created_at: Option<String>,
-    updated_at: Option<String>,
 }
 
 #[command]
-pub fn get_all_cargos() -> Result<Vec<Cargo>, String> {
-    // Path to your DB file. Change this to your app_dir() path in a real Tauri app.
-    let db_path = "transitops.db";
+pub fn get_all_cargos(app: tauri::AppHandle) -> Result<Vec<Cargo>, String> {
+    let db_path = app.path().app_data_dir().unwrap().join("transitops.db");
 
     // Open the DB (will error if file missing or inaccessible)
     let conn = Connection::open(db_path).map_err(|e| format!("DB open error: {}", e))?;
@@ -28,7 +27,7 @@ pub fn get_all_cargos() -> Result<Vec<Cargo>, String> {
     let mut stmt = conn
         .prepare(
             "SELECT id, cargo_name, description, date_available, is_currently_available,
-              weight_kg, driver_id, driver_name, created_at, updated_at
+              weight_kg, driver_id, driver_name, created_at
        FROM cargos
        ORDER BY date_available DESC, id ASC",
         )
@@ -49,7 +48,6 @@ pub fn get_all_cargos() -> Result<Vec<Cargo>, String> {
                 driver_id: row.get(6)?,
                 driver_name: row.get(7)?,
                 created_at: row.get(8)?,
-                updated_at: row.get(9)?,
             })
         })
         .map_err(|e| format!("Query map error: {}", e))?;
