@@ -1,0 +1,11 @@
+
+
+.titlebar{
+  /* for background color */
+  background-color: rgba(255, 255, 255, 0.01);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 48px;
+  padding-right: 4px;
+}
