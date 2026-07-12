@@ -33,7 +33,7 @@ export function TitleBar() {
   };
 
   return (
-    <div className="titlebar">
+    <div className="titlebar" data-tauri-drag-region>
       {/* minimize buton */}
       <button className="btns minimize-btn" onClick={minimizeWindow}>
         <svg width="10" height="1" viewBox="0 0 10 1">

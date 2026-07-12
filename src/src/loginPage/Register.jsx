@@ -1,20 +1,22 @@
 import { invoke } from "@tauri-apps/api/core";
 import "./Register.css";
 
-export function Register({ setPage }){
-    const handleSubmit = async(e) => {
+export function Register({ setPage }) {
+    const handleSubmit = async (e) => {
         //on every submit it generally refreshes so preventDefault will prevent that
         e.preventDefault();
 
         const formData = new FormData(e.target);
         const data = Object.fromEntries(formData.entries());
 
-        try{
-            const successMessage = await invoke("create_user", {usernameInput: data.username,
+        try {
+            const successMessage = await invoke("create_user", {
+                usernameInput: data.username,
                 passwordInput: data.password,
                 emailInput: data.email,
-                roleInput: data.role});
-        }catch(err){
+                roleInput: data.role
+            });
+        } catch (err) {
             console.log(err);
         }
 
@@ -26,33 +28,32 @@ export function Register({ setPage }){
         {/* form to register */}
         <form className="form" onSubmit={handleSubmit}>
             <div className="e-mail-input">
-                <label className="label">E-mail</label><br/><br/>
+                <label className="label">E-mail</label><br /><br />
                 {/* required => for the confirmation like no submit without it */}
                 <input className="input" type="email" name="email" required />
             </div>
-            <br/>
+            <br />
             <div className="password-input">
-                <label className="label">Password</label><br/><br/>
+                <label className="label">Password</label><br /><br />
                 <input className="input" type="password" name="password" required />
             </div>
-            <br/>
+            <br />
             <div>
-                <label className="label">Confirm Password</label><br/><br/>
+                <label className="label">Confirm Password</label><br /><br />
                 <input className="input" type="password" name="confirmPassword" required />
             </div>
-            <br/>
+            <br />
             <select className="select" name="role" required>
-                <option value="">Select Role...</option>
                 <option value="Client">Fleet Manager</option>
                 <option value="VehicleOps">Driver</option>
                 <option value="Safety Officer">Safety Officer</option>
                 <option value="Admin">Financial Analyst</option>
             </select>
-            <br/><br/>
+            <br /><br />
             <button className="btn" type="submit">Register</button>
         </form>
-        <br/>
-        <br/>
+        <br />
+        <br />
         <p>Already have an account? <button className="btn" type="button" onClick={() => setPage('signUp')}>
             Login
         </button></p>
