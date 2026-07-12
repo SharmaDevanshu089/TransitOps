@@ -1,5 +1,6 @@
 import { invoke } from "@tauri-apps/api/core";
 import { useState } from "react";
+import "./SignUp.css";
 
 export function SignIn({ setPage }) {
 
@@ -37,18 +38,24 @@ export function SignIn({ setPage }) {
         }
     };
 
-    return <div>
-        <button onClick={() => setPage('none')}>Back</button>
-        <form onSubmit={handleSubmit}>
-            <div><label>User Name</label><br /><br /><input type="text" name="username" required /></div>
+    return <div className="sign-in-page">
+        <button className="back-btn" onClick={() => setPage('none')}>Back</button>
+        <form className="form" onSubmit={handleSubmit}>
+            <div className="username-input">
+                <label className="label">User Name</label><br /><br />
+                <input className="input" type="text" name="username" required />
+            </div>
             <br />
-            <div><label>Password</label><br /><br /><input type="password" name="password" required /></div>
-            {error&&<span color="red">Wrong Username or Password</span>}
+            <div className="password-input">
+                <label className="label">Password</label><br /><br />
+                <input className="input" type="password" name="password" required />
+            </div>
+            {error&&<span className="error-message">Wrong Username or Password</span>}
             <br />
-            <button type="submit">Login</button>
+            <button className="btn" type="submit">Login</button>
         </form>
         <br />
         <br />
-        <p>Don't have an account? <button type="button" onClick={() => setPage('register')}>Register</button></p>
+        <p>Don't have an account? <button className="btn link-btn" type="button" onClick={() => setPage('register')}>Register</button></p>
     </div>
 }

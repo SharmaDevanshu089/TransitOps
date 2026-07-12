@@ -1,3 +1,5 @@
+import { invoke } from "@tauri-apps/api/core";
+import "./Register.css";
 
 export function Register({ setPage }){
     const handleSubmit = async(e) => {
