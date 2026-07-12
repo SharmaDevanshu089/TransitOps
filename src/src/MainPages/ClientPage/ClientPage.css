@@ -1,0 +1,54 @@
+/* Main wrapper for the client dashboard */
+.client-page {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    min-height: 100%;
+    background-color: transparent;
+    color: #f8fafc;
+    font-family: system-ui, sans-serif;
+}
+
+/* Page title */
+.client-page .title {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: #f8fafc;
+    font-weight: 500;
+}
+
+/* Keep the table from blowing up the screen layout */
+.client-page .table-container {
+    width: 100%;
+    overflow-x: auto;
+    background-color: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+}
+
+/* Base table styling */
+.client-page .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.client-page .data-table th,
+.client-page .data-table td {
+    padding: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.client-page .data-table th {
+    font-weight: 500;
+    color: #e2e8f0;
+    background-color: rgba(255, 255, 255, 0.05); /* Just enough to stand out from rows */
+}
+
+.client-page .data-table tr:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.client-page .data-table tr:last-child td {
+    border-bottom: none;
+}

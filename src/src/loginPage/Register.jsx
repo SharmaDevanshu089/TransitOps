@@ -18,7 +18,7 @@ export function Register({ setPage }) {
         try {
             const successMessage = await invoke("create_user", {
                 // 2. These keys MUST exactly match the camelCase versions of your Rust parameters
-                usernameInput: data.email,    // Sending the email to act as the username in the DB
+                usernameInput: data.username,    // Sending the email to act as the username in the DB
                 passwordInput: data.password, // Matching password_input in Rust
                 roleInput: data.role          // Matching role_input in Rust
             });
@@ -37,10 +37,10 @@ export function Register({ setPage }) {
         <button className="back-btn" onClick={() => setPage('none')}>Back</button>
         {/* form to register */}
         <form className="form" onSubmit={handleSubmit}>
-            <div className="e-mail-input">
-                <label className="label">E-mail</label><br /><br />
+            <div className="username-input">
+                <label className="label">User Name</label><br /><br />
                 {/* required => for the confirmation like no submit without it */}
-                <input className="input" type="email" name="email" required />
+                <input className="input" type="text" name="username" required />
             </div>
             <br />
             <div className="password-input">
