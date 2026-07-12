@@ -1,3 +1,5 @@
+import { invoke } from "@tauri-apps/api/core";
+import "./Register.css";
 
 export function Register({ setPage }){
     const handleSubmit = async(e) => {
@@ -18,28 +20,28 @@ export function Register({ setPage }){
 
     };
 
-    return <div>
+    return <div className="register-page">
         {/* back button to go again his/her choice */}
-        <button onClick={() => setPage('none')}>Back</button>
+        <button className="back-btn" onClick={() => setPage('none')}>Back</button>
         {/* form to register */}
-        <form onSubmit={handleSubmit}>
-            <div>
-                <label>E-mail</label><br/><br/>
+        <form className="form" onSubmit={handleSubmit}>
+            <div className="e-mail-input">
+                <label className="label">E-mail</label><br/><br/>
                 {/* required => for the confirmation like no submit without it */}
-                <input type="email" name="email" required />
+                <input className="input" type="email" name="email" required />
+            </div>
+            <br/>
+            <div className="password-input">
+                <label className="label">Password</label><br/><br/>
+                <input className="input" type="password" name="password" required />
             </div>
             <br/>
             <div>
-                <label>Password</label><br/><br/>
-                <input type="password" name="password" required />
+                <label className="label">Confirm Password</label><br/><br/>
+                <input className="input" type="password" name="confirmPassword" required />
             </div>
             <br/>
-            <div>
-                <label>Confirm Password</label><br/><br/>
-                <input type="password" name="confirmPassword" required />
-            </div>
-            <br/>
-            <select name="role" required>
+            <select className="select" name="role" required>
                 <option value="">Select Role...</option>
                 <option value="Client">Fleet Manager</option>
                 <option value="VehicleOps">Driver</option>
@@ -47,11 +49,11 @@ export function Register({ setPage }){
                 <option value="Admin">Financial Analyst</option>
             </select>
             <br/><br/>
-            <button type="submit">Register</button>
+            <button className="btn" type="submit">Register</button>
         </form>
         <br/>
         <br/>
-        <p>Already have an account? <button type="button" onClick={() => setPage('signUp')}>
+        <p>Already have an account? <button className="btn" type="button" onClick={() => setPage('signUp')}>
             Login
         </button></p>
     </div>

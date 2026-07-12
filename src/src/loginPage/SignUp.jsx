@@ -1,6 +1,10 @@
 import { invoke } from "@tauri-apps/api/core";
+import { useState } from "react";
+import "./SignUp.css";
 
 export function SignIn({ setPage }) {
+
+    const [error,setError] = useState(false)
 
     const handleSubmit = async (e) => {
         //to prevent refresh
@@ -20,31 +24,38 @@ export function SignIn({ setPage }) {
             if (role) {
                 console.log(`Success! Logged in as: ${role}`);
                 // here we will assign page as per data given
+                setError(false)
             } else {
                 console.log("Login failed: Invalid username or password.");
-                // Why the fuck is this not working
+                // Now it is working
 
-                document.getElementById("errorMsg").style.display = "auto";
+                setError(true)
             }
             // catch any error
         } catch (err) {
             console.error("error:", err);
-            document.getElementById("errorMsg").style.display = "auto";
+            setError(true)
         }
     };
 
-    return <div>
-        <button onClick={() => setPage('none')}>Back</button>
-        <form onSubmit={handleSubmit}>
-            <div><label>User Name</label><br /><br /><input type="text" name="username" required /></div>
+    return <div className="sign-in-page">
+        <button className="back-btn" onClick={() => setPage('none')}>Back</button>
+        <form className="form" onSubmit={handleSubmit}>
+            <div className="username-input">
+                <label className="label">User Name</label><br /><br />
+                <input className="input" type="text" name="username" required />
+            </div>
             <br />
-            <div><label>Password</label><br /><br /><input type="password" name="password" required /></div>
-            <span color="red" style={{ display: "none" }} id="errorMsg">Wrong Username or Password</span>
+            <div className="password-input">
+                <label className="label">Password</label><br /><br />
+                <input className="input" type="password" name="password" required />
+            </div>
+            {error&&<span className="error-message">Wrong Username or Password</span>}
             <br />
-            <button type="submit">Login</button>
+            <button className="btn" type="submit">Login</button>
         </form>
         <br />
         <br />
-        <p>Don't have an account? <button type="button" onClick={() => setPage('register')}>Register</button></p>
+        <p>Don't have an account? <button className="btn link-btn" type="button" onClick={() => setPage('register')}>Register</button></p>
     </div>
 }
