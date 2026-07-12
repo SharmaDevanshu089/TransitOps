@@ -8,7 +8,10 @@ export function Register({ setPage }){
         const data = Object.fromEntries(formData.entries());
 
         try{
-            console.log(data.role)
+            const successMessage = await invoke("create_user", {usernameInput: data.username,
+                passwordInput: data.password,
+                emailInput: data.email,
+                roleInput: data.role});
         }catch(err){
             console.log(err);
         }
@@ -38,7 +41,7 @@ export function Register({ setPage }){
             <br/>
             <select name="role" required>
                 <option value="">Select Role...</option>
-                <option value="Admin">Fleet Manager</option>
+                <option value="Client">Fleet Manager</option>
                 <option value="VehicleOps">Driver</option>
                 <option value="Safety Officer">Safety Officer</option>
                 <option value="Admin">Financial Analyst</option>
