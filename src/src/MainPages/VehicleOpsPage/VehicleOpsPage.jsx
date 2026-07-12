@@ -6,7 +6,9 @@ import "./VehicleOpsPage.css";
 export function VehicleOpsPage() {
     const [vehicles, setVehicles] = useState([]);
     const [trips, setTrips] = useState([]);
+    const [drivers, setDrivers] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [warnings, setWarnings] = useState([]);
     
     // Modal states
     const [showTripModal, setShowTripModal] = useState(false);
@@ -20,8 +22,21 @@ export function VehicleOpsPage() {
         try {
             const vData = await invoke("get_all_vehicles");
             const tData = await invoke("get_all_trips");
+            const dData = await invoke("get_all_vehcle_ops");
             setVehicles(vData);
             setTrips(tData);
+            setDrivers(dData);
+            
+            // Check for expiring licenses
+            const today = new Date();
+            const expWarnings = dData.filter(d => {
+                if (!d.license_expiry) return false;
+                const expiryDate = new Date(d.license_expiry);
+                const diffTime = expiryDate - today;
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                return diffDays <= 30; // Expired or expiring within 30 days
+            });
+            setWarnings(expWarnings);
         } catch (error) {
             console.error("Error fetching data:", error);
             toast.error("Failed to load operations data");
@@ -135,6 +150,21 @@ export function VehicleOpsPage() {
                                 </div>
                             </div>
                         </div>
+                    </div>
+                )}
+
+                {warnings.length > 0 && (
+                    <div style={{ backgroundColor: 'rgba(239, 68, 68, 0.1)', border: '1px solid rgba(239, 68, 68, 0.3)', padding: '1rem', borderRadius: '8px', marginBottom: '2rem', color: '#f87171' }}>
+                        <h3 style={{ margin: '0 0 0.5rem 0', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                            ⚠️ Driver License Warnings
+                        </h3>
+                        <ul style={{ margin: 0, paddingLeft: '1.5rem', fontSize: '0.9rem' }}>
+                            {warnings.map(w => (
+                                <li key={w.id}>
+                                    <strong>{w.name}</strong> (License: {w.license_number}) - Expires on {w.license_expiry}
+                                </li>
+                            ))}
+                        </ul>
                     </div>
                 )}
 

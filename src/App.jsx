@@ -15,16 +15,18 @@ export default function App() {
     <MemoryRouter>
       <TitleBar />
       <Toaster position="top-right" />
-      <Routes>
-        <Route path="/" element={<LoginPage />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/vehicle-ops-login" element={<VehicleOpsLogin />} />
-        <Route path="/admin" element={<AdminPage />} />
-        <Route path="/client" element={<ClientPage />} />
-        <Route path="/safety" element={<SafetyOfficerPage />} />
-        <Route path="/vehicle-ops" element={<VehicleOpsPage />} />
-      </Routes>
-      <Footer />
+      <div style={{ paddingTop: '48px', height: '100vh', boxSizing: 'border-box', overflow: 'auto' }}>
+        <Routes>
+          <Route path="/" element={<LoginPage />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/vehicle-ops-login" element={<VehicleOpsLogin />} />
+          <Route path="/admin" element={<AdminPage />} />
+          <Route path="/client" element={<ClientPage />} />
+          <Route path="/safety" element={<SafetyOfficerPage />} />
+          <Route path="/vehicle-ops" element={<VehicleOpsPage />} />
+        </Routes>
+        <Footer />
+      </div>
     </MemoryRouter>
   );
 }

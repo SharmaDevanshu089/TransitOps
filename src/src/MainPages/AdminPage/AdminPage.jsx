@@ -41,11 +41,13 @@ export function AdminPage() {
         const rows = financeData.map(row => 
             `${row.date},"${row.expense_type}",${row.cost},"${row.description || ''}"`
         );
-        const csvContent = "data:text/csv;charset=utf-8," + headers.concat(rows).join("\n");
-        const encodedUri = encodeURI(csvContent);
+        const csvContent = headers.concat(rows).join("\n");
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
         const link = document.createElement("a");
-        link.setAttribute("href", encodedUri);
+        link.setAttribute("href", url);
         link.setAttribute("download", "transitops_expenses.csv");
+        link.style.visibility = 'hidden';
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
