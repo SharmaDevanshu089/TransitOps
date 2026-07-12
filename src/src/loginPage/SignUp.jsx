@@ -40,6 +40,7 @@ export function SignIn() {
 
     return (
         <div className="signin-page">
+            <h2 className="form-title">&nbsp;&nbsp;Operator Sign In</h2>
             <form className="form" onSubmit={handleSubmit}>
                 <div className="username-input">
                     <label className="label">User Name</label><br /><br />

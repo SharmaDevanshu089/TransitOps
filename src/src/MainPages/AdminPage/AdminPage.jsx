@@ -94,7 +94,7 @@ export function AdminPage() {
     return (
         <div className="admin-page">
             <header className="page-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-                <h1 className="title" style={{ margin: 0 }}>Financial Analyst Dashboard</h1>
+                <h1 className="title" style={{ margin: 0 }}>&nbsp;&nbsp;Financial Analyst Dashboard</h1>
                 <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
                     <button className="btn" onClick={() => setShowExpenseModal(true)}>+ Add Expense</button>
                     <button className="btn" onClick={exportToCSV}>Export CSV</button>
@@ -142,7 +142,7 @@ export function AdminPage() {
                     </div>
 
                     <div className="table-container" style={{ marginBottom: '2rem' }}>
-                        <h2 className="section-title">Vehicle ROI & Costs</h2>
+                        <h2 className="section-title">&nbsp;&nbsp;Vehicle ROI & Costs</h2>
                         <table className="data-table">
                             <thead>
                                 <tr>
@@ -166,7 +166,7 @@ export function AdminPage() {
                     </div>
 
                     <div className="table-container">
-                        <h2 className="section-title">Recent Transactions</h2>
+                        <h2 className="section-title">&nbsp;&nbsp;Recent Transactions</h2>
                         <table className="data-table">
                             <thead>
                                 <tr>

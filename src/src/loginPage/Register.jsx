@@ -40,6 +40,7 @@ export function Register() {
 
     return <div className="register-page">
         <button className="back-btn" onClick={() => navigate('/')}>Back</button>
+        <h2 className="form-title">&nbsp;&nbsp;Create Account</h2>
         <form className="form" onSubmit={handleSubmit}>
             <div className="username-input">
                 <label className="label">User Name</label><br /><br />

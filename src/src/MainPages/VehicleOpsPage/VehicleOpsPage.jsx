@@ -125,7 +125,7 @@ export function VehicleOpsPage() {
     return (
         <div className="vehicleops-page">
             <header className="page-header">
-                <h1 className="page-title">Vehicle Operations Dashboard</h1>
+                <h1 className="page-title">&nbsp;&nbsp;Vehicle Operations Dashboard</h1>
                 <div className="action-buttons">
                     <button className="btn" onClick={() => setShowTripModal(true)}>+ Create Trip</button>
                     &nbsp;&nbsp;
@@ -137,7 +137,7 @@ export function VehicleOpsPage() {
                 {!loading && totalVehicles > 0 && (
                     <div className="stats-overview">
                         <div className="chart-card">
-                            <h3 className="section-title">Fleet Availability</h3>
+                            <h3 className="section-title">&nbsp;&nbsp;Fleet Availability</h3>
                             <div className="donut-wrapper">
                                 <div 
                                     className="donut-chart" 
@@ -179,7 +179,7 @@ export function VehicleOpsPage() {
                 )}
 
                 <div className="table-container">
-                    <h2 className="section-title">Active Trips</h2>
+                    <h2 className="section-title">&nbsp;&nbsp;Active Trips</h2>
                     {loading ? (
                         <p className="loading-text">Loading...</p>
                     ) : (

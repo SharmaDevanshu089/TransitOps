@@ -99,7 +99,7 @@ export function ClientPage() {
     return (
         <div className="client-page">
             <header className="page-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-                <h2 className="title" style={{ margin: 0 }}>Fleet Manager Dashboard</h2>
+                <h2 className="title" style={{ margin: 0 }}>&nbsp;&nbsp;Fleet Manager Dashboard</h2>
                 <div style={{ display: 'flex', gap: '1rem' }}>
                     <button className="btn" onClick={() => setActiveTab('vehicles')}>Vehicles</button>
                     <button className="btn" onClick={() => setActiveTab('drivers')}>Drivers</button>

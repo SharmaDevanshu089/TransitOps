@@ -19,7 +19,7 @@ export function VehicleOpsLogin() {
         <div className="vehicleops-login-page">
             <button className="back-btn" onClick={() => navigate('/register')}>Back</button>
             <form className="form" onSubmit={handleSubmit}>
-                <h2 className="form-title">Driver Details</h2>
+                <h2 className="form-title">&nbsp;&nbsp;Vehicle Operator Login</h2>
                 
                 <div className="form-group">
                     <label className="label">Full Name</label>

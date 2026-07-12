@@ -40,7 +40,7 @@ export function SafetyOfficerPage() {
 
     return (
         <div className="safety-officer-page">
-            <h2 className="title">Safety & Compliance Dashboard</h2>
+            <h2 className="title">&nbsp;&nbsp;Safety & Compliance Dashboard</h2>
             {loading ? (
                 <p>Loading compliance data...</p>
             ) : (

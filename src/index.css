@@ -26,6 +26,11 @@ input:focus, select:focus, textarea:focus, .input-fluent:focus {
     background-color: rgba(255, 255, 255, 0.1);
 }
 
+select option {
+    background-color: #1e293b;
+    color: #f8fafc;
+}
+
 /* Global styling for buttons */
 .btn {
     background-color: rgba(239, 68, 68, 0.1);
