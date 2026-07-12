@@ -4,6 +4,7 @@ use tauri::Manager;
 use window_vibrancy::apply_acrylic;
 
 mod authenticate;
+mod client_manager;
 mod initial_run;
 mod signon;
 
@@ -41,7 +42,8 @@ pub fn run() {
         .invoke_handler(tauri::generate_handler![
             greet,
             authenticate::authenticate_user,
-            signon::create_user
+            signon::create_user,
+            client_manager::get_all_cargos
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
