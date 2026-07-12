@@ -151,3 +151,26 @@ A common question is why TransitOps relies on an embedded SQLite database rather
 5. **Cross-Platform Flawlessness:** SQLite works perfectly across Windows, macOS, and Linux without any external dependencies or daemons. 
 
 **Future-Proofing:** While deploying a full cloud infrastructure for an 8-hour hackathon is simply overkill, the backend architecture is highly modular. The data layer can effortlessly be swapped out for a cloud-based PostgreSQL or MySQL instance in the future to address any enterprise-scale shortcomings.
+
+---
+
+## 🧩 How It Works (The Simple Version!)
+
+Ever wonder how all these pieces fit together? Here is a super simple breakdown of how TransitOps works behind the scenes:
+
+```mermaid
+graph LR
+    User((👤 You)) -- "Click a button" --> React[⚛️ React<br/>Frontend]
+    React -- "Ask for data" --> Tauri[🦀 Tauri + Rust<br/>Backend Engine]
+    Tauri -- "Save/Read" --> SQLite[(🗄️ SQLite<br/>Database File)]
+    SQLite -- "Give data" --> Tauri
+    Tauri -- "Show on screen" --> React
+```
+
+* **⚛️ React (The Face):** This is what you see and interact with. It makes the app look pretty and respond instantly when you click things.
+* **🦀 Tauri & Rust (The Brain):** Tauri is the invisible bridge that lets our React app run like a real desktop program instead of just a website. Rust is the super-fast brain inside Tauri that does all the heavy lifting (like math, security, and talking to the database). We use Tauri instead of other tools because it makes the app extremely lightweight and fast!
+* **🗄️ SQLite (The Memory):** Instead of saving your data on a server far away in the cloud (which requires internet), SQLite saves everything into one secure little file right on your computer.
+
+### 🧪 A Note on Test Data
+To make it easy for judges and users to see how powerful this platform is right out of the box, we have instructed the app to automatically generate a massive amount of rich, realistic test data the very first time you open it. 
+This is handled entirely by `src-tauri/src/initial_run.rs`, which populates the database with drivers, vehicles, trips, and expenses so you don't have to start with a blank slate!
