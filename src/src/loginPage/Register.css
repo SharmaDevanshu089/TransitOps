@@ -54,36 +54,12 @@
   margin-bottom: 0.5rem;
 }
 
-/* Styling for inputs and dropdowns */
-.register-page .input,
-.register-page .select {
-  width: 100%;
-  padding: 0.75rem;
-  background-color: transparent;
-  color: #f8fafc;
-  border: 1px solid #94a3b8;
-  border-radius: 6px;
-  font-size: 1rem;
-  box-sizing: border-box;
-}
-
-.register-page .select option {
-  background-color: #1e293b;
-  /* Fallback for select dropdowns which can't be purely transparent */
-  color: #f8fafc;
-}
-
-.register-page .input:focus,
-.register-page .select:focus {
-  outline: none;
-  border-color: #f8fafc;
-  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
-}
-
 /* Space out the form fields nicely */
 .register-page .form>div,
-.register-page .select {
+.register-page .select,
+.register-page .input {
   margin-bottom: 1.25rem;
+  width: 100%;
 }
 
 /* Main action button */

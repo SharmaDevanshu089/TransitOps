@@ -48,8 +48,10 @@
 
 /* Spacing out the inputs */
 .signin-page .username-input,
-.signin-page .password-input {
+.signin-page .password-input,
+.signin-page .input {
     margin-bottom: 1.5rem;
+    width: 100%;
 }
 
 /* Clean labels */
@@ -59,25 +61,6 @@
     font-weight: 500;
     color: #e2e8f0;
     margin-bottom: 0.5rem;
-}
-
-/* Modern inputs */
-.signin-page .input {
-    width: 100%;
-    padding: 0.75rem;
-    background-color: transparent;
-    color: #f8fafc;
-    border: 1px solid #94a3b8;
-    border-radius: 6px;
-    font-size: 1rem;
-    box-sizing: border-box;
-    /* keeps padding inside the width */
-}
-
-.signin-page .input:focus {
-    outline: none;
-    border-color: #f8fafc;
-    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
 }
 
 /* Submit button */
