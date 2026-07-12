@@ -7,8 +7,12 @@ export function LoginPage(){
     const [signUp,setSignUp] = useState("signIn")
 
     return(<div className="login-page">
-        <h1 className="app-title">TransitOps</h1>
-        {signUp === "signIn" && <SignIn setPage={setSignUp} />}
+        {signUp === "signIn" && (
+            <>
+                <h1 className="app-title">TransitOps</h1>
+                <SignIn setPage={setSignUp} />
+            </>
+        )}
         {signUp === "register" && <Register setPage={setSignUp} />}
     </div>)
 }
