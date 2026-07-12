@@ -145,3 +145,81 @@
   background-color: rgba(239, 68, 68, 0.1);
   color: #f87171;
 }
+
+/* Dashboard Stats and Chart Styles */
+.vehicleops-page .stats-overview {
+  display: flex;
+  margin-bottom: 2rem;
+  gap: 1.5rem;
+}
+
+.vehicleops-page .chart-card {
+  background-color: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  min-width: 350px;
+}
+
+.vehicleops-page .donut-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  margin-top: 1rem;
+}
+
+.vehicleops-page .donut-chart {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vehicleops-page .donut-hole {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background-color: #242424; /* matches typical dark theme background */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.vehicleops-page .donut-total {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #ffffff;
+  line-height: 1;
+}
+
+.vehicleops-page .donut-label {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  margin-top: 0.35rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.vehicleops-page .chart-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.vehicleops-page .legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: #e2e8f0;
+  font-size: 0.95rem;
+}
+
+.vehicleops-page .legend-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
