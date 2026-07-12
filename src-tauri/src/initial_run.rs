@@ -6,12 +6,12 @@ use std::path::Path;
 use std::path::PathBuf;
 
 const INITIAL_SQL_PROMPT: &str = "CREATE TABLE IF NOT EXISTS accounts (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(50) NOT NULL UNIQUE,
-    password_hash VARCHAR(255) NOT NULL,
-    role ENUM('Admin', 'VehicleOps', 'Safety Officer', 'Client') NOT NULL,
-    can_create_account BOOLEAN DEFAULT FALSE,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT NOT NULL UNIQUE,
+    password TEXT NOT NULL,
+    role TEXT NOT NULL CHECK(role IN ('Admin', 'VehicleOps', 'Safety Officer', 'Client')),
+    can_create_account INTEGER DEFAULT 0,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );";
 
 const INITIAL_CREATE_PROMPT: &str =
