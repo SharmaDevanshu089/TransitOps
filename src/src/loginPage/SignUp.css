@@ -1,121 +1,123 @@
 .signin-page {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: auto;
-  background-color: transparent;
-  color: #f8fafc; /* Bright, neutral white/grey */
-  font-family: system-ui, -apple-system, sans-serif;
-  padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: auto;
+    background-color: transparent;
+    color: #f8fafc;
+    /* Bright, neutral white/grey */
+    font-family: system-ui, -apple-system, sans-serif;
+    padding: 1rem;
 }
 
 /* Keep the back button out of the way */
 .signin-page .back-btn {
-  align-self: flex-start;
-  margin-bottom: 2rem;
-  background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 6px;
-  padding: 0.5rem 1rem;
-  color: #cbd5e1;
-  cursor: pointer;
-  font-size: 0.9rem;
-  transition: background-color 0.2s ease;
+    align-self: flex-start;
+    margin-bottom: 2rem;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    padding: 0.5rem 1rem;
+    color: #cbd5e1;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.2s ease;
 }
 
 .signin-page .back-btn:hover {
-  background-color: rgba(255, 255, 255, 0.05);
-  color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.05);
+    color: #ffffff;
 }
 
 /* The main form container */
 .signin-page .form {
-  background-color: transparent;
-  padding: 2.5rem;
-  border-radius: 12px;
-  /* Use min() for responsive width */
-  width: min(100%, 400px);
-  display: flex;
-  flex-direction: column;
+    background-color: transparent;
+    padding: 2.5rem;
+    border-radius: 12px;
+    /* Use min() for responsive width */
+    width: min(100%, 400px);
+    display: flex;
+    flex-direction: column;
 }
 
 /* Clean up the HTML breaks so we can use CSS margins instead */
 .signin-page .form br {
-  display: none;
+    display: none;
 }
 
 /* Spacing out the inputs */
 .signin-page .username-input,
 .signin-page .password-input {
-  margin-bottom: 1.5rem;
+    margin-bottom: 1.5rem;
 }
 
 /* Clean labels */
 .signin-page .label {
-  display: block;
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: #e2e8f0;
-  margin-bottom: 0.5rem;
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #e2e8f0;
+    margin-bottom: 0.5rem;
 }
 
 /* Modern inputs */
 .signin-page .input {
-  width: 100%;
-  padding: 0.75rem;
-  background-color: transparent;
-  color: #f8fafc;
-  border: 1px solid #94a3b8;
-  border-radius: 6px;
-  font-size: 1rem;
-  box-sizing: border-box; /* keeps padding inside the width */
+    width: 100%;
+    padding: 0.75rem;
+    background-color: transparent;
+    color: #f8fafc;
+    border: 1px solid #94a3b8;
+    border-radius: 6px;
+    font-size: 1rem;
+    box-sizing: border-box;
+    /* keeps padding inside the width */
 }
 
 .signin-page .input:focus {
-  outline: none;
-  border-color: #f8fafc;
-  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+    outline: none;
+    border-color: #f8fafc;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
 }
 
 /* Submit button */
 .signin-page .btn {
-  background-color: transparent;
-  color: #f8fafc;
-  padding: 0.75rem;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 6px;
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  margin-top: 1rem;
-  transition: background-color 0.2s ease;
+    background-color: transparent;
+    color: #f8fafc;
+    padding: 0.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: background-color 0.2s ease;
 }
 
 .signin-page .btn:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 /* Error message styling */
 .signin-page .error-message {
-  font-size: 0.85rem;
-  margin-bottom: 1rem;
-  display: block;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+    display: block;
 }
 
 /* Text link button for switching views */
 .signin-page .link-btn {
-  background: none;
-  border: none;
-  color: #e2e8f0;
-  padding: 0;
-  margin: 0;
-  font-size: inherit;
-  cursor: pointer;
-  margin-top: 0;
+    background: none;
+    border: none;
+    color: #e2e8f0;
+    padding: 0;
+    margin: 0;
+    font-size: inherit;
+    cursor: pointer;
+    margin-top: 0;
 }
 
 .signin-page .link-btn:hover {
-  text-decoration: underline;
-  color: #ffffff;
+    /* text-decoration:; */
+    color: #ffffff;
 }

@@ -4,7 +4,7 @@ import "./SignUp.css";
 
 export function SignIn({ setPage }) {
 
-    const [error,setError] = useState(false)
+    const [error, setError] = useState(false)
 
     const handleSubmit = async (e) => {
         //to prevent refresh
@@ -49,12 +49,12 @@ export function SignIn({ setPage }) {
                 <label className="label">Password</label><br /><br />
                 <input className="input" type="password" name="password" required />
             </div>
-            {error&&<span className="error-message">Wrong Username or Password</span>}
+            {error && <span className="error-message">Wrong Username or Password</span>}
             <br />
             <button className="btn" type="submit">Login</button>
         </form>
         <br />
         <br />
-        <p>Don't have an account? <button className="btn link-btn" type="button" onClick={() => setPage('register')}>Register</button></p>
+        <p>Don't have an account?    &nbsp;&nbsp;&nbsp;<button className="btn link-btn" type="button" onClick={() => setPage('register')}>Register</button></p>
     </div>
 }
