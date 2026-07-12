@@ -22,10 +22,14 @@ export function SignIn({ setPage }) {
                 // here we will assign page as per data given
             } else {
                 console.log("Login failed: Invalid username or password.");
+                // Why the fuck is this not working
+
+                document.getElementById("errorMsg").style.display = "auto";
             }
             // catch any error
         } catch (err) {
             console.error("error:", err);
+            document.getElementById("errorMsg").style.display = "auto";
         }
     };
 
@@ -35,6 +39,7 @@ export function SignIn({ setPage }) {
             <div><label>User Name</label><br /><br /><input type="text" name="username" required /></div>
             <br />
             <div><label>Password</label><br /><br /><input type="password" name="password" required /></div>
+            <span color="red" style={{ display: "none" }} id="errorMsg">Wrong Username or Password</span>
             <br />
             <button type="submit">Login</button>
         </form>
