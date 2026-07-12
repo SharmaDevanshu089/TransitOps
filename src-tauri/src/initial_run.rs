@@ -14,6 +14,16 @@ const INITIAL_SQL_PROMPT: &str = "CREATE TABLE IF NOT EXISTS accounts (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );";
 
+const INITIAL_CREATE_PROMPT: &str =
+    "INSERT INTO accounts (username, password, role, can_create_account) VALUES
+('admin_finance1', 'financepass123', 'Admin', 0),
+('vehops_user1', 'vehops123', 'VehicleOps', 1),
+('vehops_user2', 'vehops456', 'VehicleOps', 1),
+('safety_officer1', 'safety123', 'Safety Officer', 0),
+('client_user1', 'clientpass1', 'Client', 1),
+('client_user2', 'clientpass2', 'Client', 1);
+";
+
 pub fn create_db(database_path: PathBuf) {
     println!("Creating Database at : {:?}", database_path);
     // Creating new db file if it doesn't exists
@@ -33,5 +43,9 @@ pub fn create_db(database_path: PathBuf) {
 
     // Createing initial table
     conn.execute_batch(&INITIAL_SQL_PROMPT)
+        .expect("ERROR_IN_INITIAL_PROMPT");
+
+    // The Frontend dev gonna need this for debug
+    conn.execute_batch(&INITIAL_CREATE_PROMPT)
         .expect("ERROR_IN_INITIAL_PROMPT");
 }
