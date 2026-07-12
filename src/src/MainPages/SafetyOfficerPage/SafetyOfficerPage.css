@@ -1,0 +1,54 @@
+/* Main wrapper for the safety officer dashboard */
+.safety-officer-page {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    min-height: 100%;
+    background-color: transparent;
+    color: #f8fafc;
+    font-family: system-ui, sans-serif;
+}
+
+/* Page title */
+.safety-officer-page .title {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: #f8fafc;
+    font-weight: 500;
+}
+
+/* Container to prevent table from breaking layout on smaller screens */
+.safety-officer-page .table-container {
+    width: 100%;
+    overflow-x: auto;
+    background-color: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+}
+
+/* Base table styling */
+.safety-officer-page .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.safety-officer-page .data-table th,
+.safety-officer-page .data-table td {
+    padding: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.safety-officer-page .data-table th {
+    font-weight: 500;
+    color: #e2e8f0;
+    background-color: rgba(255, 255, 255, 0.05); /* Highlight header slightly */
+}
+
+.safety-officer-page .data-table tr:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.safety-officer-page .data-table tr:last-child td {
+    border-bottom: none;
+}
