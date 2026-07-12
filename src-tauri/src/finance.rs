@@ -72,3 +72,23 @@ pub fn export_to_csv(app: tauri::AppHandle, csv_content: String) -> Result<Strin
     std::fs::write(&file_path, csv_content).map_err(|e| e.to_string())?;
     Ok(file_path.to_string_lossy().into_owned())
 }
+
+#[command]
+pub fn add_expense(
+    app: tauri::AppHandle,
+    vehicle_id: i64,
+    expense_type: String,
+    cost: f64,
+    date: String,
+    description: Option<String>,
+) -> Result<String, String> {
+    let db_path = app.path().app_data_dir().unwrap().join("transitops.db");
+    let conn = Connection::open(db_path).map_err(|e| e.to_string())?;
+
+    conn.execute(
+        "INSERT INTO expenses (vehicle_id, expense_type, cost, date, description) VALUES (?1, ?2, ?3, ?4, ?5)",
+        params![vehicle_id, expense_type, cost, date, description],
+    ).map_err(|e| e.to_string())?;
+
+    Ok("Expense added successfully".to_string())
+}

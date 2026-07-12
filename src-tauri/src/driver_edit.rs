@@ -110,3 +110,66 @@ pub fn get_all_vehcle_ops(app: tauri::AppHandle) -> Result<Vec<VehcleOps>, Strin
 
     Ok(ops_list)
 }
+
+#[command]
+pub fn add_vehcle_op(
+    app: tauri::AppHandle,
+    name: String,
+    license_number: Option<String>,
+    license_category: Option<String>,
+    license_expiry: Option<String>,
+    contact_number: Option<String>,
+    email: Option<String>,
+    safety_score: i64,
+    status: String,
+    notes: Option<String>,
+) -> Result<String, String> {
+    let db_path = app.path().app_data_dir().unwrap().join("transitops.db");
+    let conn = Connection::open(db_path).map_err(|e| e.to_string())?;
+
+    conn.execute(
+        "INSERT INTO vehcleOps (name, license_number, license_category, license_expiry, contact_number, email, safety_score, status, is_active, notes)
+         VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, 1, ?9)",
+        rusqlite::params![name, license_number, license_category, license_expiry, contact_number, email, safety_score, status, notes],
+    ).map_err(|e| format!("Failed to insert driver: {}", e))?;
+
+    Ok("Driver added successfully".to_string())
+}
+
+#[command]
+pub fn update_vehcle_op(
+    app: tauri::AppHandle,
+    id: i64,
+    name: String,
+    license_number: Option<String>,
+    license_category: Option<String>,
+    license_expiry: Option<String>,
+    contact_number: Option<String>,
+    email: Option<String>,
+    safety_score: i64,
+    status: String,
+    notes: Option<String>,
+) -> Result<String, String> {
+    let db_path = app.path().app_data_dir().unwrap().join("transitops.db");
+    let conn = Connection::open(db_path).map_err(|e| e.to_string())?;
+
+    conn.execute(
+        "UPDATE vehcleOps SET name = ?1, license_number = ?2, license_category = ?3, license_expiry = ?4, contact_number = ?5, email = ?6, safety_score = ?7, status = ?8, notes = ?9 WHERE id = ?10",
+        rusqlite::params![name, license_number, license_category, license_expiry, contact_number, email, safety_score, status, notes, id],
+    ).map_err(|e| format!("Failed to update driver: {}", e))?;
+
+    Ok("Driver updated successfully".to_string())
+}
+
+#[command]
+pub fn delete_vehcle_op(app: tauri::AppHandle, id: i64) -> Result<String, String> {
+    let db_path = app.path().app_data_dir().unwrap().join("transitops.db");
+    let conn = Connection::open(db_path).map_err(|e| e.to_string())?;
+
+    // Soft delete by setting is_active = 0, or hard delete. Since we have is_active, let's hard delete for simplicity in hackathon or soft delete.
+    // The PDF asks for CRUD. I will hard delete for simplicity, or soft delete.
+    conn.execute("DELETE FROM vehcleOps WHERE id = ?1", rusqlite::params![id])
+        .map_err(|e| format!("Failed to delete driver: {}", e))?;
+
+    Ok("Driver deleted successfully".to_string())
+}

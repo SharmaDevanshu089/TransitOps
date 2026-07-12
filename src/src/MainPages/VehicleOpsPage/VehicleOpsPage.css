@@ -127,23 +127,23 @@
 }
 
 .vehicleops-page .status-available {
-  background-color: rgba(56, 189, 248, 0.1);
-  color: #7dd3fc;
-}
-
-.vehicleops-page .status-on-trip {
-  background-color: rgba(168, 85, 247, 0.1);
-  color: #c084fc;
-}
-
-.vehicleops-page .status-off-duty {
   background-color: rgba(148, 163, 184, 0.1);
   color: #cbd5e1;
 }
 
-.vehicleops-page .status-suspended {
+.vehicleops-page .status-on-trip {
   background-color: rgba(239, 68, 68, 0.1);
   color: #f87171;
+}
+
+.vehicleops-page .status-off-duty {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #94a3b8;
+}
+
+.vehicleops-page .status-suspended {
+  background-color: rgba(220, 38, 38, 0.15);
+  color: #ef4444;
 }
 
 /* Dashboard Stats and Chart Styles */
@@ -255,6 +255,6 @@
 
 /* Specific Trip Statuses */
 .status-draft { background-color: rgba(148, 163, 184, 0.1); color: #cbd5e1; }
-.status-dispatched { background-color: rgba(168, 85, 247, 0.1); color: #c084fc; }
-.status-completed { background-color: rgba(34, 197, 94, 0.1); color: #4ade80; }
+.status-dispatched { background-color: rgba(251, 146, 60, 0.1); color: #fb923c; }
+.status-completed { background-color: rgba(148, 163, 184, 0.2); color: #f8fafc; }
 .status-cancelled { background-color: rgba(239, 68, 68, 0.1); color: #f87171; }

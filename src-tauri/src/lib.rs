@@ -55,14 +55,22 @@ pub fn run() {
             driver_edit::get_all_vehcle_ops,
             vehicles::get_all_vehicles,
             vehicles::add_vehicle,
+            vehicles::update_vehicle,
+            vehicles::delete_vehicle,
+            driver_edit::add_vehcle_op,
+            driver_edit::update_vehcle_op,
+            driver_edit::delete_vehcle_op,
             trips::get_all_trips,
             trips::create_trip,
             trips::dispatch_trip,
             trips::complete_trip,
+            trips::cancel_trip,
             maintenance::log_maintenance,
             maintenance::close_maintenance,
+            maintenance::get_maintenance_logs,
             finance::get_expenses,
             finance::log_fuel,
+            finance::add_expense,
             finance::export_to_csv
         ])
         .run(tauri::generate_context!())

@@ -74,3 +74,37 @@ pub fn add_vehicle(
 
     Ok("Vehicle added successfully".to_string())
 }
+
+#[command]
+pub fn update_vehicle(
+    app: tauri::AppHandle,
+    id: i64,
+    registration_number: String,
+    name_model: String,
+    vehicle_type: Option<String>,
+    max_load_capacity_kg: f64,
+    odometer: f64,
+    acquisition_cost: Option<f64>,
+    status: String,
+) -> Result<String, String> {
+    let db_path = app.path().app_data_dir().unwrap().join("transitops.db");
+    let conn = Connection::open(db_path).map_err(|e| e.to_string())?;
+
+    conn.execute(
+        "UPDATE vehicles SET registration_number = ?1, name_model = ?2, type = ?3, max_load_capacity_kg = ?4, odometer = ?5, acquisition_cost = ?6, status = ?7 WHERE id = ?8",
+        params![registration_number, name_model, vehicle_type, max_load_capacity_kg, odometer, acquisition_cost, status, id],
+    ).map_err(|e| format!("Failed to update vehicle: {}", e))?;
+
+    Ok("Vehicle updated successfully".to_string())
+}
+
+#[command]
+pub fn delete_vehicle(app: tauri::AppHandle, id: i64) -> Result<String, String> {
+    let db_path = app.path().app_data_dir().unwrap().join("transitops.db");
+    let conn = Connection::open(db_path).map_err(|e| e.to_string())?;
+
+    conn.execute("DELETE FROM vehicles WHERE id = ?1", params![id])
+        .map_err(|e| format!("Failed to delete vehicle: {}", e))?;
+
+    Ok("Vehicle deleted successfully".to_string())
+}

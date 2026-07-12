@@ -55,9 +55,37 @@ pub fn close_maintenance(app: tauri::AppHandle, log_id: i64) -> Result<String, S
     ).map_err(|_| "Maintenance log not found".to_string())?;
 
     tx.execute("UPDATE maintenance_logs SET status = 'Closed' WHERE id = ?1", params![log_id]).map_err(|e| e.to_string())?;
-    tx.execute("UPDATE vehicles SET status = 'Available' WHERE id = ?1", params![vehicle_id]).map_err(|e| e.to_string())?;
+    tx.execute("UPDATE vehicles SET status = 'Available' WHERE id = ?1 AND status != 'Retired'", params![vehicle_id]).map_err(|e| e.to_string())?;
 
     tx.commit().map_err(|e| e.to_string())?;
 
     Ok("Maintenance closed, vehicle is now Available".to_string())
+}
+
+#[command]
+pub fn get_maintenance_logs(app: tauri::AppHandle) -> Result<Vec<MaintenanceLog>, String> {
+    let db_path = app.path().app_data_dir().unwrap().join("transitops.db");
+    let conn = Connection::open(db_path).map_err(|e| format!("DB open error: {}", e))?;
+
+    let mut stmt = conn
+        .prepare("SELECT id, vehicle_id, maintenance_type, date, cost, status, created_at FROM maintenance_logs ORDER BY date DESC")
+        .map_err(|e| format!("Prepare error: {}", e))?;
+
+    let log_iter = stmt.query_map([], |row| {
+        Ok(MaintenanceLog {
+            id: row.get(0)?,
+            vehicle_id: row.get(1)?,
+            maintenance_type: row.get(2)?,
+            date: row.get(3)?,
+            cost: row.get(4)?,
+            status: row.get(5)?,
+            created_at: row.get(6)?,
+        })
+    }).map_err(|e| e.to_string())?;
+
+    let mut logs = Vec::new();
+    for l in log_iter {
+        logs.push(l.map_err(|e| e.to_string())?);
+    }
+    Ok(logs)
 }

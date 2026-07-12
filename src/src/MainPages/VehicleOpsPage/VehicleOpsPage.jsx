@@ -107,6 +107,16 @@ export function VehicleOpsPage() {
         }
     };
 
+    const handleCancel = async (tripId) => {
+        try {
+            await invoke("cancel_trip", { tripId });
+            toast.success("Trip cancelled!");
+            fetchData();
+        } catch (error) {
+            toast.error(error.toString());
+        }
+    };
+
     const totalVehicles = vehicles.length;
     const availableCount = vehicles.filter(v => v.status === 'Available').length;
     const unavailableCount = totalVehicles - availableCount;
@@ -196,10 +206,18 @@ export function VehicleOpsPage() {
                                         </td>
                                         <td>
                                             {trip.status === 'Draft' && (
-                                                <button className="btn-small" onClick={() => handleDispatch(trip.id)}>Dispatch</button>
+                                                <>
+                                                    <button className="btn-small" onClick={() => handleDispatch(trip.id)}>Dispatch</button>
+                                                    &nbsp;
+                                                    <button className="btn-small" style={{ background: 'rgba(239, 68, 68, 0.2)', color: '#f87171' }} onClick={() => handleCancel(trip.id)}>Cancel</button>
+                                                </>
                                             )}
                                             {trip.status === 'Dispatched' && (
-                                                <button className="btn-small btn-success" onClick={() => handleComplete(trip.id)}>Complete</button>
+                                                <>
+                                                    <button className="btn-small btn-success" onClick={() => handleComplete(trip.id)}>Complete</button>
+                                                    &nbsp;
+                                                    <button className="btn-small" style={{ background: 'rgba(239, 68, 68, 0.2)', color: '#f87171' }} onClick={() => handleCancel(trip.id)}>Cancel</button>
+                                                </>
                                             )}
                                         </td>
                                     </tr>
@@ -230,7 +248,13 @@ export function VehicleOpsPage() {
                                 ))}
                             </select>
                             <br/><br/>
-                            <input name="driver_id" type="number" placeholder="Driver ID (e.g. 1)" required className="input" />
+                            <select name="driver_id" required className="select">
+                                <option value="">Select Driver</option>
+                                {drivers.filter(d => d.status === 'Available').map(d => {
+                                    // optional: visually show if expiring soon, but we only show available
+                                    return <option key={d.id} value={d.id}>{d.name} (ID: {d.id})</option>;
+                                })}
+                            </select>
                             <br/><br/>
                             <input name="cargo_weight" type="number" step="0.1" placeholder="Cargo Weight (kg)" required className="input" />
                             <br/><br/>
@@ -254,7 +278,7 @@ export function VehicleOpsPage() {
                         <form onSubmit={handleLogMaintenance}>
                             <select name="vehicle_id" required className="select">
                                 <option value="">Select Vehicle</option>
-                                {vehicles.map(v => (
+                                {vehicles.filter(v => v.status !== 'Retired').map(v => (
                                     <option key={v.id} value={v.id}>{v.registration_number}</option>
                                 ))}
                             </select>

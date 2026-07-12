@@ -22,15 +22,15 @@ input, select, textarea, .input-fluent {
 
 input:focus, select:focus, textarea:focus, .input-fluent:focus {
     outline: none;
-    border-bottom: 2px solid #60a5fa; /* Fluent blue accent for dark themes */
+    border-bottom: 2px solid #ef4444; /* Red accent for dark themes */
     background-color: rgba(255, 255, 255, 0.1);
 }
 
 /* Global styling for buttons */
 .btn {
-    background-color: rgba(56, 189, 248, 0.1);
-    color: #38bdf8;
-    border: 1px solid rgba(56, 189, 248, 0.3);
+    background-color: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.3);
     padding: 0.6rem 1.2rem;
     border-radius: 6px;
     cursor: pointer;
@@ -40,8 +40,8 @@ input:focus, select:focus, textarea:focus, .input-fluent:focus {
 }
 
 .btn:hover {
-    background-color: rgba(56, 189, 248, 0.2);
-    border-color: rgba(56, 189, 248, 0.5);
+    background-color: rgba(239, 68, 68, 0.2);
+    border-color: rgba(239, 68, 68, 0.5);
     transform: translateY(-1px);
 }
 
@@ -50,9 +50,9 @@ input:focus, select:focus, textarea:focus, .input-fluent:focus {
 }
 
 .btn-small {
-    background-color: rgba(56, 189, 248, 0.1);
-    color: #38bdf8;
-    border: 1px solid rgba(56, 189, 248, 0.3);
+    background-color: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.3);
     padding: 0.3rem 0.6rem;
     border-radius: 4px;
     cursor: pointer;
@@ -62,7 +62,7 @@ input:focus, select:focus, textarea:focus, .input-fluent:focus {
 }
 
 .btn-small:hover {
-    background-color: rgba(56, 189, 248, 0.2);
+    background-color: rgba(239, 68, 68, 0.2);
 }
 
 .btn-success {
