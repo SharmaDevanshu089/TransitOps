@@ -25,7 +25,7 @@ export function Register({ setPage }) {
 
             console.log(successMessage);
             // On success, redirect to login page
-            setPage('signUp');
+            setPage('signIn');
 
         } catch (err) {
             console.error("Backend error:", err);
@@ -34,7 +34,7 @@ export function Register({ setPage }) {
 
     return <div className="register-page">
         {/* back button to go again his/her choice */}
-        <button className="back-btn" onClick={() => setPage('none')}>Back</button>
+        <button className="back-btn" onClick={() => setPage('signIn')}>Back</button>
         {/* form to register */}
         <form className="form" onSubmit={handleSubmit}>
             <div className="username-input">
@@ -64,7 +64,7 @@ export function Register({ setPage }) {
         </form>
         <br />
         <br />
-        <p>Already have an account? <button className="btn" type="button" onClick={() => setPage('signUp')}>
+        <p>Already have an account? <button className="btn" type="button" onClick={() => setPage('signIn')}>
             Login
         </button></p>
     </div>

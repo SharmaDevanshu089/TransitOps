@@ -1,14 +1,13 @@
-/* Center the sign-in form vertically and horizontally */
 .signin-page {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
+  min-height: auto;
   background-color: transparent;
   color: #f8fafc; /* Bright, neutral white/grey */
   font-family: system-ui, -apple-system, sans-serif;
-  padding: 2rem;
+  padding: 1rem;
 }
 
 /* Keep the back button out of the way */

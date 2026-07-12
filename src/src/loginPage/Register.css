@@ -1,14 +1,13 @@
-/* Center the registration layout */
 .register-page {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
+  min-height: auto;
   background-color: transparent;
   color: #f8fafc; 
   font-family: system-ui, sans-serif;
-  padding: 2rem;
+  padding: 1rem;
 }
 
 /* Simple back button */

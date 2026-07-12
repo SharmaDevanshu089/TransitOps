@@ -1,13 +1,22 @@
-/* Center everything on the login screen */
 .login-page {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
+  min-height: calc(100vh - 49px);
   background-color: transparent;
   color: #f8fafc; 
   font-family: system-ui, sans-serif;
 }
+
+.app-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+}
+
 
 /* Container for our main buttons */
 .button-container {

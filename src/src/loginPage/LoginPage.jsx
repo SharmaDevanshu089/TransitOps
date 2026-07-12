@@ -4,15 +4,10 @@ import { Register } from "./Register";
 import "./LoginPage.css";
 
 export function LoginPage(){
-    const [signUp,setSignUp] = useState("none")
+    const [signUp,setSignUp] = useState("signIn")
 
     return(<div className="login-page">
-        {signUp === "none" && (
-            <div className="button-container">
-                <button className="btn login-btn" onClick={() => setSignUp("signIn")}>Sign In</button>
-                <button className="btn register-btn" onClick={() => setSignUp('register')}>Register</button>
-            </div>
-        )}
+        <h1 className="app-title">TransitOps</h1>
         {signUp === "signIn" && <SignIn setPage={setSignUp} />}
         {signUp === "register" && <Register setPage={setSignUp} />}
     </div>)
