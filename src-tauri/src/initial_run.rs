@@ -147,4 +147,3 @@ pub fn create_db(database_path: PathBuf) {
 
     println!("Database initialized successfully!");
 }
-1
