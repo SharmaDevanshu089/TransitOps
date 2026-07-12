@@ -8,7 +8,7 @@ export function VehicleOpsLogin({ username, setPage }) {
         const data = Object.fromEntries(formData.entries());
         
         //After this we have todo 1. transfer data from here to backend to update in db 
-        //setPage("VehicleOps")
+        setPage("VehicleOps")
     };
 
     return (
