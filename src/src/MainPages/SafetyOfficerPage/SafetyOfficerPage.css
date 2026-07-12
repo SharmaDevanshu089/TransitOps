@@ -52,3 +52,51 @@
 .safety-officer-page .data-table tr:last-child td {
     border-bottom: none;
 }
+
+/* Badge Styles for Expiry */
+.safety-officer-page .expiry-badge {
+    padding: 0.35rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.safety-officer-page .status-good {
+    background-color: rgba(52, 211, 153, 0.1);
+    color: #119565;
+}
+
+.safety-officer-page .status-warning {
+    background-color: rgba(251, 191, 36, 0.1);
+    color: #966e00;
+}
+
+.safety-officer-page .status-danger {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: #942929;
+}
+
+/* below this is safety score cc u can just unhighlight or delte this */
+
+/* Badge Styles for Safety Score */
+/* .safety-officer-page .score-badge {
+    padding: 0.25rem 0.5rem;
+    border-radius: 9999px;
+    font-size: 0.85rem;
+    font-weight: 500;
+} */
+
+/* .safety-officer-page .score-badge.high {
+    background-color: rgba(34, 197, 94, 0.1);
+    color: #4ade80;
+}
+
+.safety-officer-page .score-badge.medium {
+    background-color: rgba(234, 179, 8, 0.1);
+    color: #facc15;
+}
+
+.safety-officer-page .score-badge.low {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: #f87171;
+} */

@@ -3,13 +3,10 @@ import { TitleBar } from "./src/TitleBar/TitleBar";
 
 
 export default function App() {
-
-  return (<div>
-    <div>
+  return (
+    <div >
       <TitleBar />
-    </div>
-    <div>
       <LoginPage />
     </div>
-  </div>)
+  );
 }
