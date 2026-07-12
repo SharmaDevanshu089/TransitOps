@@ -1,3 +1,4 @@
+use bcrypt::{hash, DEFAULT_COST};
 use rusqlite::{params, Connection};
 use tauri::Manager;
 
@@ -11,16 +12,19 @@ pub fn create_user(
     let db_path = app.path().app_data_dir().unwrap().join("transitops.db");
     let conn = Connection::open(db_path).map_err(|e| e.to_string())?;
 
-    // Automatically determine permission based on the role
+    // 1. Hash the password in one line
+    let password_hash =
+        hash(password_input, DEFAULT_COST).map_err(|e| format!("Hashing failed: {}", e))?;
+
     let can_create_account = match role_input.as_str() {
         "VehicleOps" | "Client" => true,
-        _ => false, // Admin and Safety Officer default to false
+        _ => false,
     };
 
-    // Execute the INSERT statement
+    // 2. Insert into SQLite
     let result = conn.execute(
         "INSERT INTO accounts (username, password, role, can_create_account) VALUES (?1, ?2, ?3, ?4)",
-        params![username_input, password_input, role_input, can_create_account],
+        params![username_input, password_hash, role_input, can_create_account],
     );
 
     match result {

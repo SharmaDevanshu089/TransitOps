@@ -3,23 +3,33 @@ import "./Register.css";
 
 export function Register({ setPage }) {
     const handleSubmit = async (e) => {
-        //on every submit it generally refreshes so preventDefault will prevent that
         e.preventDefault();
 
         const formData = new FormData(e.target);
         const data = Object.fromEntries(formData.entries());
 
-        try {
-            const successMessage = await invoke("create_user", {
-                usernameInput: data.username,
-                passwordInput: data.password,
-                emailInput: data.email,
-                roleInput: data.role
-            });
-        } catch (err) {
-            console.log(err);
+        // 1. Verify passwords match before talking to the backend
+        if (data.password !== data.confirmPassword) {
+            console.error("Passwords do not match!");
+            // You should probably set an error state here to show the user
+            return;
         }
 
+        try {
+            const successMessage = await invoke("create_user", {
+                // 2. These keys MUST exactly match the camelCase versions of your Rust parameters
+                usernameInput: data.email,    // Sending the email to act as the username in the DB
+                passwordInput: data.password, // Matching password_input in Rust
+                roleInput: data.role          // Matching role_input in Rust
+            });
+
+            console.log(successMessage);
+            // On success, redirect to login page
+            setPage('signUp');
+
+        } catch (err) {
+            console.error("Backend error:", err);
+        }
     };
 
     return <div className="register-page">
