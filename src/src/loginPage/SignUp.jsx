@@ -1,6 +1,9 @@
 import { invoke } from "@tauri-apps/api/core";
+import { useState } from "react";
 
 export function SignIn({ setPage }) {
+
+    const [error,setError] = useState(false)
 
     const handleSubmit = async (e) => {
         //to prevent refresh
@@ -20,16 +23,17 @@ export function SignIn({ setPage }) {
             if (role) {
                 console.log(`Success! Logged in as: ${role}`);
                 // here we will assign page as per data given
+                setError(false)
             } else {
                 console.log("Login failed: Invalid username or password.");
-                // Why the fuck is this not working
+                // Now it is working
 
-                document.getElementById("errorMsg").style.display = "auto";
+                setError(true)
             }
             // catch any error
         } catch (err) {
             console.error("error:", err);
-            document.getElementById("errorMsg").style.display = "auto";
+            setError(true)
         }
     };
 
@@ -39,7 +43,7 @@ export function SignIn({ setPage }) {
             <div><label>User Name</label><br /><br /><input type="text" name="username" required /></div>
             <br />
             <div><label>Password</label><br /><br /><input type="password" name="password" required /></div>
-            <span color="red" style={{ display: "none" }} id="errorMsg">Wrong Username or Password</span>
+            {error&&<span color="red">Wrong Username or Password</span>}
             <br />
             <button type="submit">Login</button>
         </form>
