@@ -5,6 +5,7 @@ use window_vibrancy::apply_acrylic;
 
 mod authenticate;
 mod initial_run;
+mod signon;
 
 // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
 #[tauri::command]
@@ -37,7 +38,11 @@ pub fn run() {
             Ok(())
         })
         .plugin(tauri_plugin_opener::init())
-        .invoke_handler(tauri::generate_handler![greet, authenticate::authenticate_user])
+        .invoke_handler(tauri::generate_handler![
+            greet,
+            authenticate::authenticate_user,
+            signon::create_user
+        ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
