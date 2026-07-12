@@ -1,8 +1,32 @@
-export function SignUp({ setPage }){
-    const handleSubmit = (e) => {
+import { invoke } from "@tauri-apps/api/core";
+
+export function SignIn({ setPage }){
+
+    const handleSubmit = async (e) => {
+        //to prevent refresh
         e.preventDefault();
-        alert("Login successful!");
-        // Here you would typically handle the login authentication
+     
+        //to get data from form
+        const formData = new FormData(e.target);
+        const data = Object.fromEntries(formData.entries());
+
+        try {
+            // to get the user role from database
+            const role = await invoke("authenticate_user", {
+                usernameInput: data.username,
+                passwordInput: data.password,
+            });
+            // condition to check if role is defined or not 
+            if (role) {
+                console.log(`Success! Logged in as: ${role}`);
+                // here we will assign page as per data given
+            } else {
+                console.log("Login failed: Invalid username or password.");
+            }
+        // catch any error
+        } catch (err) {
+            console.error("error:", err);
+        }
     };
 
     return <div>
