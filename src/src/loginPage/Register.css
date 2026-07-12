@@ -1,1 +1,123 @@
+/* Center the registration layout */
+.register-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: transparent;
+  color: #f8fafc; 
+  font-family: system-ui, sans-serif;
+  padding: 2rem;
+}
 
+/* Simple back button */
+.register-page .back-btn {
+  align-self: flex-start;
+  margin-bottom: 1.5rem;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  color: #cbd5e1;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s ease;
+}
+
+.register-page .back-btn:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+}
+
+/* The registration card */
+.register-page .form {
+  background-color: transparent;
+  padding: 2.5rem;
+  border-radius: 12px;
+  /* Use min() for responsive width */
+  width: min(100%, 450px);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Hide those extra break tags from JSX so we can use flexbox spacing instead */
+.register-page .form br {
+  display: none;
+}
+
+/* Clear text for labels */
+.register-page .label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #e2e8f0;
+  margin-bottom: 0.5rem;
+}
+
+/* Styling for inputs and dropdowns */
+.register-page .input,
+.register-page .select {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: transparent;
+  color: #f8fafc;
+  border: 1px solid #94a3b8;
+  border-radius: 6px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.register-page .select option {
+  background-color: #1e293b; /* Fallback for select dropdowns which can't be purely transparent */
+  color: #f8fafc;
+}
+
+.register-page .input:focus,
+.register-page .select:focus {
+  outline: none;
+  border-color: #f8fafc;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+}
+
+/* Space out the form fields nicely */
+.register-page .form > div,
+.register-page .select {
+  margin-bottom: 1.25rem;
+}
+
+/* Main action button */
+.register-page .btn {
+  background-color: transparent;
+  color: #f8fafc;
+  padding: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  transition: background-color 0.2s ease;
+}
+
+.register-page .btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Text link for logging in */
+.register-page p .btn {
+  background: none;
+  border: none;
+  color: #e2e8f0;
+  padding: 0;
+  margin: 0;
+  font-size: inherit;
+  font-weight: normal;
+  cursor: pointer;
+}
+
+.register-page p .btn:hover {
+  text-decoration: underline;
+  background: none;
+  color: #ffffff;
+}

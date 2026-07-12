@@ -1,1 +1,55 @@
+/* Center everything on the login screen */
+.login-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: transparent;
+  color: #f8fafc; 
+  font-family: system-ui, sans-serif;
+}
 
+/* Container for our main buttons */
+.button-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: min(90%, 300px);
+}
+
+/* Shared button styling */
+.login-page .btn {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.login-page .btn:active {
+  transform: scale(0.98);
+}
+
+/* Specific styling for the Sign In button */
+.login-page .login-btn {
+  background-color: transparent;
+  color: #f8fafc;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.login-page .login-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Specific styling for the Register button */
+.login-page .register-btn {
+  background-color: transparent;
+  color: #cbd5e1;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.login-page .register-btn:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #f8fafc;
+}
