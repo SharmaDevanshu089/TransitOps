@@ -1,21 +1,18 @@
 
 export function Register({ setPage }){
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         //on every submit it generally refreshes so preventDefault will prevent that
         e.preventDefault();
-        // we are taking the form data in the form of object instance which on clg won't display anything but store data
+
         const formData = new FormData(e.target);
-        // to store this in the form of data that we can clg
         const data = Object.fromEntries(formData.entries());
-        
-        // this to check password
-        if (data.password !== data.confirmPassword) {
-            alert("Passwords do not match!");
-            return;
+
+        try{
+            console.log(data.role)
+        }catch(err){
+            console.log(err);
         }
 
-        //here we will take data and then send to home page
-        setPage('none'); // returns to main menu
     };
 
     return <div>
@@ -41,11 +38,10 @@ export function Register({ setPage }){
             <br/>
             <select name="role" required>
                 <option value="">Select Role...</option>
-                <option value="Fleet Manager">Fleet Manager</option>
-                <option value="Driver">Driver</option>
+                <option value="Admin">Fleet Manager</option>
+                <option value="VehicleOps">Driver</option>
                 <option value="Safety Officer">Safety Officer</option>
-                <option value="Financial Analyst">Financial Analyst</option>
-                <option value="Admin">Admin</option>
+                <option value="Admin">Financial Analyst</option>
             </select>
             <br/><br/>
             <button type="submit">Register</button>
