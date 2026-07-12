@@ -3,7 +3,6 @@ import { Toaster } from "react-hot-toast";
 import { LoginPage } from "./src/loginPage/LoginPage";
 import { Register } from "./src/loginPage/Register";
 import { VehicleOpsLogin } from "./src/loginPage/VehicleOpsLogin";
-import { SignUp } from "./src/loginPage/SignUp";
 import { TitleBar } from "./src/TitleBar/TitleBar";
 import { AdminPage } from "./src/MainPages/AdminPage/AdminPage";
 import { ClientPage } from "./src/MainPages/ClientPage/ClientPage";
@@ -18,7 +17,6 @@ export default function App() {
       <Routes>
         <Route path="/" element={<LoginPage />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/signup" element={<SignUp />} />
         <Route path="/vehicle-ops-login" element={<VehicleOpsLogin />} />
         <Route path="/admin" element={<AdminPage />} />
         <Route path="/client" element={<ClientPage />} />
