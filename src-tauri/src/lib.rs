@@ -6,12 +6,12 @@ use window_vibrancy::apply_acrylic;
 mod authenticate;
 mod client_manager;
 mod driver_edit;
-mod initial_run;
-mod signon;
-mod vehicles;
-mod trips;
-mod maintenance;
 mod finance;
+mod initial_run;
+mod maintenance;
+mod signon;
+mod trips;
+mod vehicles;
 
 // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
 #[tauri::command]

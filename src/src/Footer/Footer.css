@@ -51,6 +51,9 @@
 }
 
 /* Adjust layout so content doesn't get hidden behind the fixed footer */
-.client-page, .admin-page, .vehicle-ops-page, .safety-officer-page {
+.client-page,
+.admin-page,
+.vehicle-ops-page,
+.safety-officer-page {
     padding-bottom: 60px !important;
 }

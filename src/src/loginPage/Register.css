@@ -5,7 +5,7 @@
   justify-content: center;
   min-height: auto;
   background-color: transparent;
-  color: #f8fafc; 
+  color: #f8fafc;
   font-family: system-ui, sans-serif;
   padding: 1rem;
 }
@@ -68,7 +68,8 @@
 }
 
 .register-page .select option {
-  background-color: #1e293b; /* Fallback for select dropdowns which can't be purely transparent */
+  background-color: #1e293b;
+  /* Fallback for select dropdowns which can't be purely transparent */
   color: #f8fafc;
 }
 
@@ -80,7 +81,7 @@
 }
 
 /* Space out the form fields nicely */
-.register-page .form > div,
+.register-page .form>div,
 .register-page .select {
   margin-bottom: 1.25rem;
 }
