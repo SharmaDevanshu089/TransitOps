@@ -19,7 +19,7 @@ pub struct Cargo {
 #[command]
 pub fn get_all_cargos() -> Result<Vec<Cargo>, String> {
     // Path to your DB file. Change this to your app_dir() path in a real Tauri app.
-    let db_path = "data/transitops.db";
+    let db_path = "transitops.db";
 
     // Open the DB (will error if file missing or inaccessible)
     let conn = Connection::open(db_path).map_err(|e| format!("DB open error: {}", e))?;
