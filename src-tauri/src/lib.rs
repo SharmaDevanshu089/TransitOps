@@ -1,3 +1,5 @@
+use std::path::Path;
+use tauri::path::BaseDirectory;
 use tauri::Manager;
 use window_vibrancy::apply_acrylic;
 
@@ -18,6 +20,12 @@ pub fn run() {
             apply_acrylic(&window, Some((40, 30, 55, 110).into()))
                 .expect("Failed to apply acrylic");
 
+            // I need to Check if Database already exisits , IF NOT then call  the initial run file to create database
+            let db_path = app.path().app_data_dir().unwrap().join("transitops.db");
+            println!("Database Path {:?}", db_path);
+
+            let db_exists = Path::new(&db_path).exists();
+            println!("Database Exists :{}", db_exists);
             Ok(())
         })
         .plugin(tauri_plugin_opener::init())
